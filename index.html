@@ -3,72 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#090b12">
-
+<meta name="theme-color" content="#080a10">
 <title>IQ PRO UZ</title>
-
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
 *{
  box-sizing:border-box;
  -webkit-tap-highlight-color:transparent;
 }
-
 body{
  margin:0;
  background:#080a10;
  color:#fff;
  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
-
 .app{
  max-width:520px;
  min-height:100vh;
  margin:auto;
  padding:18px;
- padding-bottom:35px;
+ padding-bottom:40px;
 }
-
-.hidden{
- display:none!important;
-}
-
+.hidden{display:none!important}
 .top{
  display:flex;
  justify-content:space-between;
  align-items:center;
  margin-bottom:20px;
 }
-
 .logo{
  font-size:23px;
  font-weight:900;
- letter-spacing:-.5px;
 }
-
 .badge{
  background:#171b2a;
- border:1px solid #282e43;
- color:#9ea9ff;
+ border:1px solid #292f43;
+ color:#9ba8ff;
  padding:8px 12px;
  border-radius:20px;
- font-size:13px;
+ font-size:12px;
  font-weight:800;
 }
-
 .hero{
  position:relative;
  overflow:hidden;
- background:
- linear-gradient(145deg,#171b34,#0e1020);
+ background:linear-gradient(145deg,#171b34,#0e1020);
  border:1px solid #292f4d;
  border-radius:28px;
  padding:28px 22px;
  box-shadow:0 20px 60px rgba(0,0,0,.35);
 }
-
 .hero:before{
  content:"";
  position:absolute;
@@ -76,31 +61,27 @@ body{
  height:180px;
  border-radius:50%;
  background:#5366ff;
- opacity:.13;
- filter:blur(40px);
+ opacity:.14;
+ filter:blur(45px);
  right:-60px;
  top:-60px;
 }
-
 .brain{
  font-size:55px;
  position:relative;
 }
-
 .hero h1{
  position:relative;
  margin:10px 0 8px;
  font-size:31px;
  line-height:1.1;
 }
-
 .hero p{
  position:relative;
  color:#a8aec0;
  line-height:1.55;
  margin:0;
 }
-
 .card{
  background:#11141d;
  border:1px solid #222735;
@@ -109,31 +90,26 @@ body{
  margin-top:15px;
  box-shadow:0 10px 35px rgba(0,0,0,.22);
 }
-
 .stats{
  display:grid;
  grid-template-columns:repeat(3,1fr);
  gap:9px;
  margin-top:18px;
 }
-
 .stat{
  background:#181c27;
  border-radius:16px;
- padding:13px 8px;
+ padding:13px 7px;
  text-align:center;
 }
-
 .stat b{
  display:block;
  font-size:17px;
 }
-
 .stat span{
  color:#777f94;
- font-size:11px;
+ font-size:10px;
 }
-
 .start{
  width:100%;
  border:0;
@@ -146,27 +122,17 @@ body{
  background:linear-gradient(135deg,#5366ff,#7257ff);
  box-shadow:0 10px 30px rgba(83,102,255,.25);
 }
-
 .start:active{
  transform:scale(.98);
 }
-
-.timer-row{
- display:flex;
- align-items:center;
- gap:12px;
-}
-
 .timer{
  min-width:70px;
  text-align:center;
 }
-
 .timer.danger{
  color:#ff667a;
  border-color:#5b202c;
 }
-
 .progress-wrap{
  height:7px;
  background:#1d212c;
@@ -174,14 +140,12 @@ body{
  overflow:hidden;
  margin:14px 0 22px;
 }
-
 .progress{
  height:100%;
  width:0%;
  background:linear-gradient(90deg,#5366ff,#9a68ff);
  transition:.3s;
 }
-
 .meta{
  display:flex;
  justify-content:space-between;
@@ -189,14 +153,12 @@ body{
  font-size:13px;
  font-weight:700;
 }
-
 .question{
  font-size:21px;
  line-height:1.4;
  font-weight:850;
  margin:18px 0;
 }
-
 .visual{
  text-align:center;
  font-size:42px;
@@ -204,7 +166,6 @@ body{
  padding:8px 0 15px;
  letter-spacing:5px;
 }
-
 .answer{
  width:100%;
  border:1px solid #2b3040;
@@ -218,53 +179,34 @@ body{
  font-weight:700;
  transition:.15s;
 }
-
 .answer:active{
  transform:scale(.985);
  background:#202536;
 }
-
-.answer.correct{
- border-color:#36d399;
- background:#102a22;
-}
-
-.answer.wrong{
- border-color:#ff5d73;
- background:#2b141b;
-}
-
 .dots{
  display:flex;
  gap:5px;
  margin-top:18px;
 }
-
 .dot{
  height:5px;
  flex:1;
  border-radius:5px;
  background:#252a37;
 }
-
 .dot.done{
  background:#5366ff;
 }
-
 .result{
  text-align:center;
 }
-
 .trophy{
  font-size:64px;
 }
-
 .result-name{
  font-size:20px;
  font-weight:900;
- margin-top:8px;
 }
-
 .iq{
  font-size:76px;
  line-height:1;
@@ -274,48 +216,39 @@ body{
  -webkit-background-clip:text;
  color:transparent;
 }
-
 .iq-label{
  color:#777f94;
 }
-
 .score{
  margin-top:20px;
  display:grid;
  grid-template-columns:repeat(3,1fr);
  gap:8px;
 }
-
 .score-box{
  background:#181c27;
  border-radius:15px;
  padding:13px 5px;
 }
-
 .score-box b{
  display:block;
  font-size:18px;
 }
-
 .score-box span{
  color:#747c91;
- font-size:11px;
+ font-size:10px;
 }
-
 .analysis{
  text-align:left;
- margin-top:18px;
+ margin-top:20px;
 }
-
 .analysis-title{
  font-weight:900;
  margin-bottom:10px;
 }
-
 .bar-row{
  margin:10px 0;
 }
-
 .bar-label{
  display:flex;
  justify-content:space-between;
@@ -323,37 +256,44 @@ body{
  color:#858da0;
  margin-bottom:5px;
 }
-
 .bar-bg{
  height:6px;
  background:#242936;
  border-radius:10px;
  overflow:hidden;
 }
-
 .bar{
  height:100%;
  background:#6676ff;
  border-radius:10px;
 }
-
-.status{
- color:#777f94;
- font-size:12px;
- margin-top:14px;
- line-height:1.4;
+.rank-box{
+ margin-top:18px;
+ padding:16px;
+ border-radius:18px;
+ background:#181c27;
+ text-align:left;
 }
-
+.rank-title{
+ font-size:13px;
+ font-weight:900;
+ color:#858da0;
+ margin-bottom:8px;
+}
+.my-rank-number{
+ font-size:30px;
+ font-weight:950;
+ color:#8996ff;
+}
+.my-rank-text{
+ color:#858da0;
+ font-size:12px;
+ line-height:1.5;
+}
 .rank{
  text-align:left;
  margin-top:20px;
 }
-
-.rank-title{
- font-weight:900;
- margin-bottom:8px;
-}
-
 .rank-row{
  display:flex;
  justify-content:space-between;
@@ -361,12 +301,16 @@ body{
  border-bottom:1px solid #242936;
  font-size:13px;
 }
-
 .rank-iq{
  color:#8996ff;
  font-weight:900;
 }
-
+.status{
+ color:#777f94;
+ font-size:12px;
+ margin-top:14px;
+ line-height:1.5;
+}
 .note{
  color:#686f82;
  font-size:11px;
@@ -375,1139 +319,946 @@ body{
 }
 </style>
 </head>
-
 <body>
-
 <div class="app">
-
 <!-- START -->
 <section id="start">
-
 <div class="top">
  <div class="logo">🧠 IQ PRO</div>
  <div class="badge">UZ</div>
 </div>
-
 <div class="hero">
- <div class="brain">🧠</div>
-
- <h1>Intellektingizni sinang.</h1>
-
- <p>
- 20 ta mantiqiy topshiriq. Savollar davomida
- murakkablik oshib boradi.
- </p>
+<div class="brain">🧠</div>
+<h1>Intellektingizni sinang.</h1>
+<p>
+20 ta mantiqiy topshiriq. Murakkablik bosqichma-bosqich oshib boradi.
+</p>
 </div>
-
 <div class="card">
-
- <div class="stats">
-  <div class="stat">
-   <b>20</b>
-   <span>SAVOL</span>
-  </div>
-
-  <div class="stat">
-   <b>10:00</b>
-   <span>VAQT</span>
-  </div>
-
-  <div class="stat">
-   <b>4</b>
-   <span>KATEGORIYA</span>
-  </div>
- </div>
-
- <button class="start" onclick="startTest()">
-  TESTNI BOSHLASH
- </button>
-
- <div class="note">
-  Diqqat: test davomida javobni o‘zgartirish imkoniyati yo‘q.
-  Natija IQ-style hisoblash shkalasi asosida chiqariladi.
- </div>
-
+<div class="stats">
+<div class="stat">
+<b>20</b>
+<span>SAVOL</span>
+</div>
+<div class="stat">
+<b>10:00</b>
+<span>VAQT</span>
+</div>
+<div class="stat">
+<b>4</b>
+<span>KATEGORIYA</span>
+</div>
+</div>
+<button class="start" onclick="startTest()">
+TESTNI BOSHLASH
+</button>
+<div class="note">
+Javob berilgandan keyin keyingi savolga o'tiladi.
+</div>
 </div>
 </section>
-
-
 <!-- TEST -->
 <section id="test" class="hidden">
-
 <div class="top">
-
- <div class="logo">🧠 IQ PRO</div>
-
- <div class="timer-row">
-  <div class="badge timer" id="timer">10:00</div>
- </div>
-
+<div class="logo">🧠 IQ PRO</div>
+<div class="badge timer" id="timer">
+10:00
 </div>
-
+</div>
 <div class="card">
-
- <div class="meta">
-  <span id="number">Savol 1 / 20</span>
-  <span id="category">LOGIC</span>
- </div>
-
- <div class="progress-wrap">
-  <div class="progress" id="progress"></div>
- </div>
-
- <div class="visual" id="visual"></div>
-
- <div class="question" id="question"></div>
-
- <div id="answers"></div>
-
- <div class="dots" id="dots"></div>
-
+<div class="meta">
+<span id="number">
+Savol 1 / 20
+</span>
+<span id="category">
+LOGIC
+</span>
+</div>
+<div class="progress-wrap">
+<div class="progress" id="progress"></div>
+</div>
+<div class="visual" id="visual"></div>
+<div class="question" id="question"></div>
+<div id="answers"></div>
+<div class="dots" id="dots"></div>
 </div>
 </section>
-
-
 <!-- RESULT -->
 <section id="result" class="hidden">
-
 <div class="top">
- <div class="logo">🧠 IQ PRO</div>
- <div class="badge">RESULT</div>
+<div class="logo">🧠 IQ PRO</div>
+<div class="badge">RESULT</div>
 </div>
-
 <div class="card result">
-
- <div class="trophy">🏆</div>
-
- <div class="result-name" id="userName">
-  Foydalanuvchi
- </div>
-
- <div class="iq" id="iq">0</div>
-
- <div class="iq-label">
-  TAXMINIY IQ NATIJA
- </div>
-
- <div class="score">
-
-  <div class="score-box">
-   <b id="correct">0</b>
-   <span>TO‘G‘RI</span>
-  </div>
-
-  <div class="score-box">
-   <b id="percent">0%</b>
-   <span>ANIQLIK</span>
-  </div>
-
-  <div class="score-box">
-   <b id="usedTime">0:00</b>
-   <span>VAQT</span>
-  </div>
-
- </div>
-
-
- <div class="analysis">
-
-  <div class="analysis-title">
-   📊 Kategoriyalar
-  </div>
-
-  <div class="bar-row">
-   <div class="bar-label">
-    <span>Numerical</span>
-    <span id="numPct">0%</span>
-   </div>
-   <div class="bar-bg">
-    <div class="bar" id="numBar"></div>
-   </div>
-  </div>
-
-  <div class="bar-row">
-   <div class="bar-label">
-    <span>Logic</span>
-    <span id="logicPct">0%</span>
-   </div>
-   <div class="bar-bg">
-    <div class="bar" id="logicBar"></div>
-   </div>
-  </div>
-
-  <div class="bar-row">
-   <div class="bar-label">
-    <span>Verbal</span>
-    <span id="verbalPct">0%</span>
-   </div>
-   <div class="bar-bg">
-    <div class="bar" id="verbalBar"></div>
-   </div>
-  </div>
-
-  <div class="bar-row">
-   <div class="bar-label">
-    <span>Pattern</span>
-    <span id="patternPct">0%</span>
-   </div>
-   <div class="bar-bg">
-    <div class="bar" id="patternBar"></div>
-   </div>
-  </div>
-
- </div>
-
-
- <div class="status" id="saveStatus">
-  Natija saqlanmoqda...
- </div>
-
-
- <div class="rank">
-
-  <div class="rank-title">
-   🏆 TOP NATIJALAR
-  </div>
-
-  <div id="ranking">
-   Yuklanmoqda...
-  </div>
-
- </div>
-
-
- <button class="start" onclick="restartTest()">
-  🔄 QAYTA TEST
- </button>
-
- <div class="note">
-  IQ natijasi professional psixometrik diagnostika o‘rnini
-  bosmaydi. Bu Mini App ichidagi IQ-style baholashdir.
- </div>
-
+<div class="trophy">🏆</div>
+<div class="result-name" id="userName">
+Foydalanuvchi
+</div>
+<div class="iq" id="iq">
+0
+</div>
+<div class="iq-label">
+TAXMINIY IQ NATIJA
+</div>
+<div class="score">
+<div class="score-box">
+<b id="correct">0</b>
+<span>TO‘G‘RI</span>
+</div>
+<div class="score-box">
+<b id="percent">0%</b>
+<span>ANIQLIK</span>
+</div>
+<div class="score-box">
+<b id="usedTime">0:00</b>
+<span>VAQT</span>
+</div>
+</div>
+<div class="analysis">
+<div class="analysis-title">
+📊 Kategoriyalar
+</div>
+<div class="bar-row">
+<div class="bar-label">
+<span>Numerical</span>
+<span id="numPct">0%</span>
+</div>
+<div class="bar-bg">
+<div class="bar" id="numBar"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-label">
+<span>Logic</span>
+<span id="logicPct">0%</span>
+</div>
+<div class="bar-bg">
+<div class="bar" id="logicBar"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-label">
+<span>Verbal</span>
+<span id="verbalPct">0%</span>
+</div>
+<div class="bar-bg">
+<div class="bar" id="verbalBar"></div>
+</div>
+</div>
+<div class="bar-row">
+<div class="bar-label">
+<span>Pattern</span>
+<span id="patternPct">0%</span>
+</div>
+<div class="bar-bg">
+<div class="bar" id="patternBar"></div>
+</div>
+</div>
+</div>
+<!-- PERSONAL RANK -->
+<div class="rank-box">
+<div class="rank-title">
+📍 SIZNING REYTINGINGIZ
+</div>
+<div id="myRank">
+Hisoblanmoqda...
+</div>
+</div>
+<!-- TOP 10 -->
+<div class="rank">
+<div class="rank-title">
+🏆 TOP 10
+</div>
+<div id="ranking">
+Yuklanmoqda...
+</div>
+</div>
+<div class="status" id="saveStatus">
+Natija saqlanmoqda...
+</div>
+<button class="start" onclick="restartTest()">
+🔄 QAYTA TEST
+</button>
+<div class="note">
+Bu natija IQ-style baholash bo‘lib,
+standartlashtirilgan klinik IQ testi emas.
+</div>
 </div>
 </section>
-
 </div>
-
-
 <script>
-
-/* ==========================================
-   TELEGRAM
-========================================== */
-
+/* =====================================
+ TELEGRAM
+===================================== */
 let tg=null;
 let telegramUser=null;
-
 try{
-
- if(
-   window.Telegram &&
-   window.Telegram.WebApp
- ){
-
-  tg=window.Telegram.WebApp;
-
-  tg.ready();
-  tg.expand();
-
-  if(
-   tg.initDataUnsafe &&
-   tg.initDataUnsafe.user
-  ){
-
-   telegramUser=
-    tg.initDataUnsafe.user;
-
-  }
-
- }
-
-}catch(e){
-
- console.log(e);
-
+if(
+window.Telegram &&
+window.Telegram.WebApp
+){
+tg=
+window.Telegram.WebApp;
+tg.ready();
+tg.expand();
+if(
+tg.initDataUnsafe &&
+tg.initDataUnsafe.user
+){
+telegramUser=
+tg.initDataUnsafe.user;
 }
-
-
-/* ==========================================
-   SUPABASE
-========================================== */
-
+}
+}catch(error){
+console.log(error);
+}
+/* =====================================
+ SUPABASE
+===================================== */
 const SUPABASE_URL=
 "https://qnpnktznhmwxvgijjryg.supabase.co";
-
 /*
-   O'ZINGNING YANGI PUBLISHABLE KEYINGNI
-   SHU JOYGA QO'Y.
+ O'ZINGNING PUBLISHABLE KEYINGNI
+ SHU JOYGA QO'Y.
 */
-
 const SUPABASE_KEY=
-"BU_YERGA_YANGI_PUBLISHABLE_KEYINGNI_QOY";
-
+"sb_publishable_u1IQId7OpOqYMKJNlUnkGg_NdAoLsfv";
 let supabaseClient=null;
-
 try{
-
- if(
-  window.supabase &&
-  SUPABASE_KEY !==
-  "sb_publishable_u1IQId7OpOqYMKJNlUnkGg_NdAoLsfv"
- ){
-
-  supabaseClient=
-   window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-   );
-
- }
-
-}catch(e){
-
- console.log(e);
-
+if(
+window.supabase &&
+SUPABASE_KEY !==
+"BU_YERGA_YANGI_PUBLISHABLE_KEYINGNI_QOY"
+){
+supabaseClient=
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 }
-
-
-/* ==========================================
-   QUESTIONS
-========================================== */
-
+}catch(error){
+console.log(error);
+}
+/* =====================================
+ QUESTIONS
+===================================== */
 const questions=[
-
 {
- category:"NUMERICAL",
- q:"2, 6, 12, 20, 30, ?",
- a:["36","40","42","44"],
- c:2
+category:"NUMERICAL",
+q:"2, 6, 12, 20, 30, ?",
+a:["36","40","42","44"],
+c:2
 },
-
 {
- category:"NUMERICAL",
- q:"3, 7, 15, 31, 63, ?",
- a:["95","111","127","129"],
- c:2
+category:"NUMERICAL",
+q:"3, 7, 15, 31, 63, ?",
+a:["95","111","127","129"],
+c:2
 },
-
 {
- category:"NUMERICAL",
- q:"1, 4, 10, 22, 46, ?",
- a:["82","90","94","96"],
- c:2
+category:"NUMERICAL",
+q:"1, 4, 10, 22, 46, ?",
+a:["82","90","94","96"],
+c:2
 },
-
 {
- category:"NUMERICAL",
- q:"81, 54, 36, 24, ?",
- a:["12","16","18","20"],
- c:2
+category:"NUMERICAL",
+q:"81, 54, 36, 24, ?",
+a:["12","16","18","20"],
+c:2
 },
-
 {
- category:"NUMERICAL",
- q:"5, 9, 17, 33, 65, ?",
- a:["97","113","129","131"],
- c:2
+category:"NUMERICAL",
+q:"5, 9, 17, 33, 65, ?",
+a:["97","113","129","131"],
+c:2
 },
-
 {
- category:"LOGIC",
- q:"Barcha shifokorlar oliy ma’lumotli. Ali shifokor. Demak:",
- a:[
-  "Ali talaba",
-  "Ali oliy ma’lumotli",
-  "Ali professor",
-  "Ali hamshira"
- ],
- c:1
+category:"LOGIC",
+q:"Barcha shifokorlar oliy ma’lumotli. Ali shifokor. Demak:",
+a:[
+"Ali talaba",
+"Ali oliy ma’lumotli",
+"Ali professor",
+"Ali hamshira"
+],
+c:1
 },
-
 {
- category:"LOGIC",
- q:"Agar barcha A lar B bo‘lsa va hech bir B C bo‘lmasa, qaysi xulosa to‘g‘ri?",
- a:[
-  "Ba'zi A lar C",
-  "Barcha A lar C",
-  "Hech bir A C emas",
-  "Barcha C lar A"
- ],
- c:2
+category:"LOGIC",
+q:"Agar barcha A lar B bo‘lsa va hech bir B C bo‘lmasa, qaysi xulosa to‘g‘ri?",
+a:[
+"Ba'zi A lar C",
+"Barcha A lar C",
+"Hech bir A C emas",
+"Barcha C lar A"
+],
+c:2
 },
-
 {
- category:"LOGIC",
- q:"5 ta mashina 5 daqiqada 5 ta detal ishlab chiqaradi. 1 ta mashina 5 daqiqada nechta detal ishlab chiqaradi?",
- a:["1","5","10","25"],
- c:0
+category:"LOGIC",
+q:"5 ta mashina 5 daqiqada 5 ta detal ishlab chiqaradi. 1 ta mashina 5 daqiqada nechta detal ishlab chiqaradi?",
+a:["1","5","10","25"],
+c:0
 },
-
 {
- category:"LOGIC",
- q:"Bir oilada 2 ota, 2 o‘g‘il bor. Oilada eng kamida nechta odam bo‘lishi mumkin?",
- a:["2","3","4","5"],
- c:1
+category:"LOGIC",
+q:"Bir oilada 2 ota, 2 o‘g‘il bor. Oilada eng kamida nechta odam bo‘lishi mumkin?",
+a:["2","3","4","5"],
+c:1
 },
-
 {
- category:"LOGIC",
- q:"Soat 3:00 da minut va soat strelkalari orasidagi burchak qancha?",
- a:["45°","60°","90°","180°"],
- c:2
+category:"LOGIC",
+q:"Soat 3:00 da minut va soat strelkalari orasidagi burchak qancha?",
+a:["45°","60°","90°","180°"],
+c:2
 },
-
 {
- category:"VERBAL",
- q:"KITOB : O‘QISH = QALAM : ?",
- a:[
-  "Yozish",
-  "Kesish",
-  "Chizish",
-  "O‘chirish"
- ],
- c:0
+category:"VERBAL",
+q:"KITOB : O‘QISH = QALAM : ?",
+a:[
+"Yozish",
+"Kesish",
+"Chizish",
+"O‘chirish"
+],
+c:0
 },
-
 {
- category:"VERBAL",
- q:"ISSIQ : SOVUQ = KATTA : ?",
- a:[
-  "Uzun",
-  "Kichik",
-  "Og‘ir",
-  "Tez"
- ],
- c:1
+category:"VERBAL",
+q:"ISSIQ : SOVUQ = KATTA : ?",
+a:[
+"Uzun",
+"Kichik",
+"Og‘ir",
+"Tez"
+],
+c:1
 },
-
 {
- category:"VERBAL",
- q:"Qaysi so‘z boshqalaridan farq qiladi?",
- a:[
-  "Olma",
-  "Nok",
-  "Banan",
-  "Sabzi"
- ],
- c:3
+category:"VERBAL",
+q:"Qaysi so‘z boshqalaridan farq qiladi?",
+a:[
+"Olma",
+"Nok",
+"Banan",
+"Sabzi"
+],
+c:3
 },
-
 {
- category:"VERBAL",
- q:"Qaysi juftlik munosabati boshqalardan farq qiladi?",
- a:[
-  "Qush — uchish",
-  "Baliq — suzish",
-  "Odam — yurish",
-  "Kitob — yugurish"
- ],
- c:3
+category:"VERBAL",
+q:"Qaysi juftlik boshqalardan farq qiladi?",
+a:[
+"Qush — uchish",
+"Baliq — suzish",
+"Odam — yurish",
+"Kitob — yugurish"
+],
+c:3
 },
-
 {
- category:"VERBAL",
- q:"Ko‘z : Ko‘rish = Quloq : ?",
- a:[
-  "Gapirish",
-  "Eshitish",
-  "Hid bilish",
-  "Yurish"
- ],
- c:1
+category:"VERBAL",
+q:"Ko‘z : Ko‘rish = Quloq : ?",
+a:[
+"Gapirish",
+"Eshitish",
+"Hid bilish",
+"Yurish"
+],
+c:1
 },
-
 {
- category:"PATTERN",
- visual:"🔵 🔵 🔴 🔵 🔵 🔴 🔵 🔵 ?",
- q:"Keyingi belgini toping.",
- a:["🔴","🔵","🟢","🟡"],
- c:0
+category:"PATTERN",
+visual:"🔵 🔵 🔴 🔵 🔵 🔴 🔵 🔵 ?",
+q:"Keyingi belgini toping.",
+a:["🔴","🔵","🟢","🟡"],
+c:0
 },
-
 {
- category:"PATTERN",
- visual:"▲ ■ ▲ ■ ▲ ■ ?",
- q:"Keyingi shakl qaysi?",
- a:["▲","■","●","◆"],
- c:0
+category:"PATTERN",
+visual:"▲ ■ ▲ ■ ▲ ■ ?",
+q:"Keyingi shakl qaysi?",
+a:["▲","■","●","◆"],
+c:0
 },
-
 {
- category:"PATTERN",
- visual:"● ▲ ▲ ● ▲ ▲ ● ?",
- q:"Ketma-ketlikni davom ettiring.",
- a:["●","▲","■","◆"],
- c:1
+category:"PATTERN",
+visual:"● ▲ ▲ ● ▲ ▲ ● ?",
+q:"Ketma-ketlikni davom ettiring.",
+a:["●","▲","■","◆"],
+c:1
 },
-
 {
- category:"PATTERN",
- visual:"◆ ◆ ● ◆ ◆ ● ◆ ?",
- q:"Yetishmayotgan belgi qaysi?",
- a:["◆","●","▲","■"],
- c:0
+category:"PATTERN",
+visual:"◆ ◆ ● ◆ ◆ ● ◆ ?",
+q:"Yetishmayotgan belgi qaysi?",
+a:["◆","●","▲","■"],
+c:0
 },
-
 {
- category:"PATTERN",
- visual:"★ ○ ○ ★ ○ ○ ★ ?",
- q:"Keyingi belgi qaysi?",
- a:["★","○","▲","■"],
- c:1
+category:"PATTERN",
+visual:"★ ○ ○ ★ ○ ○ ★ ?",
+q:"Keyingi belgi qaysi?",
+a:["★","○","▲","■"],
+c:1
 }
-
 ];
-
-
-/* ==========================================
-   VARIABLES
-========================================== */
-
+/* =====================================
+ VARIABLES
+===================================== */
 let current=0;
 let correct=0;
-let finished=false;
-
 let time=600;
-let startTime=0;
 let interval=null;
-
+let finished=false;
 let categoryStats={
- NUMERICAL:{correct:0,total:0},
- LOGIC:{correct:0,total:0},
- VERBAL:{correct:0,total:0},
- PATTERN:{correct:0,total:0}
+NUMERICAL:{correct:0,total:0},
+LOGIC:{correct:0,total:0},
+VERBAL:{correct:0,total:0},
+PATTERN:{correct:0,total:0}
 };
-
-
-/* ==========================================
-   START
-========================================== */
-
+/* =====================================
+ START
+===================================== */
 function startTest(){
-
- current=0;
- correct=0;
- time=600;
- finished=false;
-
- startTime=Date.now();
-
- categoryStats={
-  NUMERICAL:{correct:0,total:0},
-  LOGIC:{correct:0,total:0},
-  VERBAL:{correct:0,total:0},
-  PATTERN:{correct:0,total:0}
- };
-
- document
-  .getElementById("start")
-  .classList
-  .add("hidden");
-
- document
-  .getElementById("result")
-  .classList
-  .add("hidden");
-
- document
-  .getElementById("test")
-  .classList
-  .remove("hidden");
-
- createDots();
- showQuestion();
-
- if(interval){
-  clearInterval(interval);
- }
-
- interval=
-  setInterval(updateTimer,1000);
-
+current=0;
+correct=0;
+time=600;
+finished=false;
+categoryStats={
+NUMERICAL:{correct:0,total:0},
+LOGIC:{correct:0,total:0},
+VERBAL:{correct:0,total:0},
+PATTERN:{correct:0,total:0}
+};
+document
+.getElementById("start")
+.classList
+.add("hidden");
+document
+.getElementById("result")
+.classList
+.add("hidden");
+document
+.getElementById("test")
+.classList
+.remove("hidden");
+createDots();
+showQuestion();
+if(interval){
+clearInterval(interval);
 }
-
-
-/* ==========================================
-   DOTS
-========================================== */
-
+interval=
+setInterval(
+updateTimer,
+1000
+);
+}
+/* =====================================
+ DOTS
+===================================== */
 function createDots(){
-
- const box=
-  document.getElementById("dots");
-
- box.innerHTML="";
-
- for(
-  let i=0;
-  i<questions.length;
-  i++
- ){
-
-  const d=
-   document.createElement("div");
-
-  d.className="dot";
-
-  d.id="dot"+i;
-
-  box.appendChild(d);
-
- }
-
-}
-
-
-/* ==========================================
-   TIMER
-========================================== */
-
-function updateTimer(){
-
- if(finished){
-  return;
- }
-
- time--;
-
- let m=
-  Math.floor(time/60);
-
- let s=
-  time%60;
-
- if(s<10){
-  s="0"+s;
- }
-
- const timer=
-  document.getElementById("timer");
-
- timer.textContent=
-  m+":"+s;
-
- if(time<=60){
-
-  timer.classList.add("danger");
-
- }
-
- if(time<=0){
-
-  finish();
-
- }
-
-}
-
-
-/* ==========================================
-   SHOW
-========================================== */
-
-function showQuestion(){
-
- const q=
-  questions[current];
-
- document
-  .getElementById("number")
-  .textContent=
-  "Savol "+
-  (current+1)+
-  " / "+
-  questions.length;
-
- document
-  .getElementById("category")
-  .textContent=
-  q.category;
-
- document
-  .getElementById("progress")
-  .style
-  .width=
-  (
-   ((current+1)/
-   questions.length)*100
-  )+"%";
-
- document
-  .getElementById("visual")
-  .textContent=
-  q.visual || "";
-
- document
-  .getElementById("question")
-  .textContent=
-  q.q;
-
- const box=
-  document.getElementById("answers");
-
- box.innerHTML="";
-
- q.a.forEach(
-  function(answer,index){
-
-   const btn=
-    document.createElement("button");
-
-   btn.className="answer";
-
-   btn.textContent=answer;
-
-   btn.onclick=
-    function(){
-
-     choose(index);
-
-    };
-
-   box.appendChild(btn);
-
-  }
- );
-
-}
-
-
-/* ==========================================
-   ANSWER
-========================================== */
-
-function choose(index){
-
- if(finished){
-  return;
- }
-
- const q=
-  questions[current];
-
- categoryStats[q.category].total++;
-
- if(index===q.c){
-
-  correct++;
-
-  categoryStats[q.category].correct++;
-
- }
-
- const dot=
-  document.getElementById(
-   "dot"+current
-  );
-
- if(dot){
-  dot.classList.add("done");
- }
-
- current++;
-
- if(current>=questions.length){
-
-  finish();
-
- }
- else{
-
-  showQuestion();
-
- }
-
-}
-
-
-/* ==========================================
-   IQ
-========================================== */
-
-function calculateIQ(){
-
- /*
-   IQ-style demo scale.
-   Standardlashtirilgan klinik IQ emas.
- */
-
- return 70+
-  Math.round(
-   (correct/questions.length)*60
-  );
-
-}
-
-
-/* ==========================================
-   RESULT
-========================================== */
-
-function finish(){
-
- if(finished){
-  return;
- }
-
- finished=true;
-
- if(interval){
-
-  clearInterval(interval);
-  interval=null;
-
- }
-
- document
-  .getElementById("test")
-  .classList
-  .add("hidden");
-
- document
-  .getElementById("result")
-  .classList
-  .remove("hidden");
-
- const iq=
-  calculateIQ();
-
- let name=
-  "Foydalanuvchi";
-
- if(telegramUser){
-
-  if(telegramUser.first_name){
-
-   name=
-    telegramUser.first_name;
-
-  }
-  else if(telegramUser.username){
-
-   name=
-    "@"+
-    telegramUser.username;
-
-  }
-
- }
-
- document
-  .getElementById("userName")
-  .textContent=
-  name;
-
- document
-  .getElementById("iq")
-  .textContent=
-  iq;
-
- document
-  .getElementById("correct")
-  .textContent=
-  correct;
-
- document
-  .getElementById("percent")
-  .textContent=
-  Math.round(
-   correct/questions.length*100
-  )+"%";
-
- let used=
-  600-time;
-
- let um=
-  Math.floor(used/60);
-
- let us=
-  used%60;
-
- if(us<10){
-  us="0"+us;
- }
-
- document
-  .getElementById("usedTime")
-  .textContent=
-  um+":"+us;
-
- updateCategory(
-  "NUMERICAL",
-  "numPct",
-  "numBar"
- );
-
- updateCategory(
-  "LOGIC",
-  "logicPct",
-  "logicBar"
- );
-
- updateCategory(
-  "VERBAL",
-  "verbalPct",
-  "verbalBar"
- );
-
- updateCategory(
-  "PATTERN",
-  "patternPct",
-  "patternBar"
- );
-
- saveResult(iq);
-
-}
-
-
-/* ==========================================
-   CATEGORY
-========================================== */
-
-function updateCategory(
- category,
- textId,
- barId
+const box=
+document.getElementById("dots");
+box.innerHTML="";
+for(
+let i=0;
+i<questions.length;
+i++
 ){
-
- const data=
-  categoryStats[category];
-
- let pct=0;
-
- if(data.total>0){
-
-  pct=
-   Math.round(
-    data.correct/
-    data.total*
-    100
-   );
-
- }
-
- document
-  .getElementById(textId)
-  .textContent=
-  pct+"%";
-
- document
-  .getElementById(barId)
-  .style
-  .width=
-  pct+"%";
-
+const dot=
+document.createElement("div");
+dot.className="dot";
+dot.id="dot"+i;
+box.appendChild(dot);
 }
-
-
-/* ==========================================
-   SAVE
-========================================== */
-
+}
+/* =====================================
+ TIMER
+===================================== */
+function updateTimer(){
+if(finished){
+return;
+}
+time--;
+let minutes=
+Math.floor(time/60);
+let seconds=
+time%60;
+if(seconds<10){
+seconds="0"+seconds;
+}
+const timer=
+document.getElementById("timer");
+timer.textContent=
+minutes+":"+seconds;
+if(time<=60){
+timer.classList
+.add("danger");
+}
+if(time<=0){
+finish();
+}
+}
+/* =====================================
+ SHOW QUESTION
+===================================== */
+function showQuestion(){
+const q=
+questions[current];
+document
+.getElementById("number")
+.textContent=
+"Savol "+
+(current+1)+
+" / "+
+questions.length;
+document
+.getElementById("category")
+.textContent=
+q.category;
+document
+.getElementById("progress")
+.style
+.width=
+(
+((current+1)/
+questions.length)*100
+)+"%";
+document
+.getElementById("visual")
+.textContent=
+q.visual || "";
+document
+.getElementById("question")
+.textContent=
+q.q;
+const box=
+document.getElementById("answers");
+box.innerHTML="";
+q.a.forEach(
+function(answer,index){
+const button=
+document.createElement("button");
+button.className="answer";
+button.type="button";
+button.textContent=answer;
+button.onclick=
+function(){
+choose(index);
+};
+box.appendChild(button);
+}
+);
+}
+/* =====================================
+ CHOOSE
+===================================== */
+function choose(index){
+if(finished){
+return;
+}
+const q=
+questions[current];
+categoryStats
+[q.category]
+.total++;
+if(index===q.c){
+correct++;
+categoryStats
+[q.category]
+.correct++;
+}
+const dot=
+document.getElementById(
+"dot"+current
+);
+if(dot){
+dot.classList.add("done");
+}
+current++;
+if(current>=questions.length){
+finish();
+}else{
+showQuestion();
+}
+}
+/* =====================================
+ IQ
+===================================== */
+function calculateIQ(){
+return 70+
+Math.round(
+(correct/
+questions.length)*60
+);
+}
+/* =====================================
+ FINISH
+===================================== */
+function finish(){
+if(finished){
+return;
+}
+finished=true;
+if(interval){
+clearInterval(interval);
+interval=null;
+}
+document
+.getElementById("test")
+.classList
+.add("hidden");
+document
+.getElementById("result")
+.classList
+.remove("hidden");
+const iq=
+calculateIQ();
+let name=
+"Foydalanuvchi";
+if(telegramUser){
+if(telegramUser.first_name){
+name=
+telegramUser.first_name;
+}else if(
+telegramUser.username
+){
+name=
+"@"+
+telegramUser.username;
+}
+}
+document
+.getElementById("userName")
+.textContent=
+name;
+document
+.getElementById("iq")
+.textContent=
+iq;
+document
+.getElementById("correct")
+.textContent=
+correct;
+document
+.getElementById("percent")
+.textContent=
+Math.round(
+correct/
+questions.length*
+100
+)+"%";
+let used=
+600-time;
+let minutes=
+Math.floor(used/60);
+let seconds=
+used%60;
+if(seconds<10){
+seconds="0"+seconds;
+}
+document
+.getElementById("usedTime")
+.textContent=
+minutes+":"+seconds;
+updateCategory(
+"NUMERICAL",
+"numPct",
+"numBar"
+);
+updateCategory(
+"LOGIC",
+"logicPct",
+"logicBar"
+);
+updateCategory(
+"VERBAL",
+"verbalPct",
+"verbalBar"
+);
+updateCategory(
+"PATTERN",
+"patternPct",
+"patternBar"
+);
+saveResult(iq);
+}
+/* =====================================
+ CATEGORY
+===================================== */
+function updateCategory(
+category,
+textId,
+barId
+){
+const data=
+categoryStats[category];
+let pct=0;
+if(data.total>0){
+pct=
+Math.round(
+data.correct/
+data.total*
+100
+);
+}
+document
+.getElementById(textId)
+.textContent=
+pct+"%";
+document
+.getElementById(barId)
+.style
+.width=
+pct+"%";
+}
+/* =====================================
+ SAVE RESULT
+===================================== */
 async function saveResult(iq){
-
- const status=
-  document.getElementById(
-   "saveStatus"
-  );
-
- if(!telegramUser){
-
-  status.textContent=
-   "⚠️ Telegram profilingiz aniqlanmadi.";
-
-  loadRanking();
-
-  return;
-
- }
-
- if(!supabaseClient){
-
-  status.textContent=
-   "⚠️ Supabase key ulanmagan.";
-
-  return;
-
- }
-
- const data={
-
-  telegram_id:
-   telegramUser.id,
-
-  username:
-   telegramUser.username ||
-   null,
-
-  first_name:
-   telegramUser.first_name ||
-   null,
-
-  score:
-   correct,
-
-  iq:
-   iq
-
- };
-
- try{
-
-  const response=
-   await supabaseClient
-    .from("results")
-    .insert(data);
-
-  if(response.error){
-
-   console.error(
-    response.error
-   );
-
-   status.textContent=
-    "❌ Saqlash xatosi: "+
-    response.error.message;
-
-   return;
-
-  }
-
-  status.textContent=
-   "✅ Natijangiz saqlandi.";
-
-  loadRanking();
-
- }
- catch(error){
-
-  console.error(error);
-
-  status.textContent=
-   "❌ Xatolik: "+
-   error.message;
-
- }
-
+const status=
+document.getElementById(
+"saveStatus"
+);
+if(!telegramUser){
+status.textContent=
+"⚠️ Telegram profili aniqlanmadi.";
+return;
 }
-
-
-/* ==========================================
-   RANKING
-========================================== */
-
+if(!supabaseClient){
+status.textContent=
+"⚠️ Supabase ulanmagan.";
+return;
+}
+const data={
+telegram_id:
+telegramUser.id,
+username:
+telegramUser.username ||
+null,
+first_name:
+telegramUser.first_name ||
+null,
+score:
+correct,
+iq:
+iq
+};
+try{
+const response=
+await supabaseClient
+.from("results")
+.insert(data);
+if(response.error){
+console.error(
+response.error
+);
+status.textContent=
+"❌ Saqlash xatosi: "+
+response.error.message;
+return;
+}
+status.textContent=
+"✅ Natija saqlandi.";
+loadRanking();
+setTimeout(
+function(){
+loadMyRank(iq);
+},
+500
+);
+}catch(error){
+console.error(error);
+status.textContent=
+"❌ Xatolik: "+
+error.message;
+}
+}
+/* =====================================
+ PERSONAL RANK
+===================================== */
+async function loadMyRank(iq){
+const box=
+document.getElementById(
+"myRank"
+);
+if(
+!supabaseClient ||
+!telegramUser
+){
+box.innerHTML=
+"<div class='my-rank-text'>"+
+"Reyting aniqlanmadi."+
+"</div>";
+return;
+}
+try{
+const response=
+await supabaseClient
+.from("results")
+.select(
+"telegram_id,iq"
+);
+if(response.error){
+box.innerHTML=
+"<div class='my-rank-text'>"+
+"Reytingni hisoblab bo‘lmadi."+
+"</div>";
+return;
+}
+const rows=
+response.data || [];
+rows.sort(
+function(a,b){
+return b.iq-a.iq;
+}
+);
+let rank=0;
+for(
+let i=0;
+i<rows.length;
+i++
+){
+if(
+Number(rows[i].telegram_id)===
+Number(telegramUser.id)
+){
+rank=i+1;
+break;
+}
+}
+if(rank===0){
+box.innerHTML=
+"<div class='my-rank-text'>"+
+"Reyting topilmadi."+
+"</div>";
+return;
+}
+const total=
+rows.length;
+const higher=
+Math.max(
+0,
+total-rank
+);
+let percentile=0;
+if(total>1){
+percentile=
+Math.round(
+higher/
+(total-1)*
+100
+);
+}
+box.innerHTML=
+"<div class='my-rank-number'>"+
+"#"+
+rank+
+"</div>"+
+"<div class='my-rank-text'>"+
+"Jami "+
+total+
+" ta natija ichida · "+
+percentile+
+"% foydalanuvchidan yuqori"+
+"</div>";
+}catch(error){
+console.error(error);
+box.innerHTML=
+"<div class='my-rank-text'>"+
+"Reytingni yuklab bo‘lmadi."+
+"</div>";
+}
+}
+/* =====================================
+ TOP 10
+===================================== */
 async function loadRanking(){
-
- const box=
-  document.getElementById(
-   "ranking"
-  );
-
- if(!supabaseClient){
-
-  box.innerHTML=
-   "<div class='note'>Reyting vaqtincha mavjud emas.</div>";
-
-  return;
-
- }
-
- try{
-
-  const response=
-   await supabaseClient
-    .from("results")
-    .select(
-     "first_name,username,iq,score"
-    )
-    .order(
-     "iq",
-     {ascending:false}
-    )
-    .limit(10);
-
-  if(response.error){
-
-   box.innerHTML=
-    "<div class='note'>Reyting yuklanmadi.</div>";
-
-   return;
-
-  }
-
-  const rows=
-   response.data||[];
-
-  box.innerHTML="";
-
-  if(rows.length===0){
-
-   box.innerHTML=
-    "<div class='note'>Hozircha natijalar yo‘q.</div>";
-
-   return;
-
-  }
-
-  rows.forEach(
-   function(row,index){
-
-    const name=
-     row.first_name ||
-     (
-      row.username ?
-      "@"+row.username :
-      "Foydalanuvchi"
-     );
-
-    const div=
-     document.createElement("div");
-
-    div.className="rank-row";
-
-    div.innerHTML=
-     "<span>"+
-     (index+1)+
-     ". "+
-     name+
-     "</span>"+
-     "<span class='rank-iq'>IQ "+
-     row.iq+
-     "</span>";
-
-    box.appendChild(div);
-
-   }
-  );
-
- }
- catch(error){
-
-  console.error(error);
-
- }
-
+const box=
+document.getElementById(
+"ranking"
+);
+if(!supabaseClient){
+box.innerHTML=
+"<div class='note'>"+
+"Reyting vaqtincha mavjud emas."+
+"</div>";
+return;
 }
-
-
-/* ==========================================
-   RESTART
-========================================== */
-
+try{
+const response=
+await supabaseClient
+.from("results")
+.select(
+"first_name,username,iq,score"
+)
+.order(
+"iq",
+{
+ascending:false
+}
+)
+.limit(10);
+if(response.error){
+box.innerHTML=
+"<div class='note'>"+
+"Reyting yuklanmadi."+
+"</div>";
+return;
+}
+const rows=
+response.data || [];
+box.innerHTML="";
+if(rows.length===0){
+box.innerHTML=
+"<div class='note'>"+
+"Hozircha natijalar yo‘q."+
+"</div>";
+return;
+}
+rows.forEach(
+function(row,index){
+const name=
+row.first_name ||
+(
+row.username ?
+"@"+row.username :
+"Foydalanuvchi"
+);
+const div=
+document.createElement(
+"div"
+);
+div.className="rank-row";
+div.innerHTML=
+"<span>"+
+(index+1)+
+". "+
+name+
+"</span>"+
+"<span class='rank-iq'>"+
+"IQ "+
+row.iq+
+"</span>";
+box.appendChild(div);
+}
+);
+}catch(error){
+console.error(error);
+}
+}
+/* =====================================
+ RESTART
+===================================== */
 function restartTest(){
-
- document
-  .getElementById("result")
-  .classList
-  .add("hidden");
-
- startTest();
-
+document
+.getElementById("result")
+.classList
+.add("hidden");
+startTest();
 }
-
 </script>
-
 </body>
 </html>
