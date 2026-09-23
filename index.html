@@ -98,6 +98,10 @@ background:#111827;
 color:white;
 }
 
+.start:active{
+transform:scale(.98);
+}
+
 .progress-wrap{
 height:7px;
 background:#e9ebf0;
@@ -137,6 +141,10 @@ font-size:16px;
 text-align:left;
 }
 
+.answer:active{
+transform:scale(.98);
+}
+
 .hidden{
 display:none;
 }
@@ -169,7 +177,7 @@ line-height:1.6;
 
 .save-status{
 font-size:13px;
-margin-top:12px;
+margin-top:10px;
 color:#6b7280;
 }
 </style>
@@ -188,6 +196,7 @@ color:#6b7280;
 </div>
 
 <div class="hero">
+
 <div class="hero-icon">🧠</div>
 
 <h1>IQ testingizni boshlang</h1>
@@ -195,6 +204,7 @@ color:#6b7280;
 <p>
 Mantiqiy fikrlashingizni sinab ko‘ring va natijangizni bilib oling.
 </p>
+
 </div>
 
 <div class="card">
@@ -270,7 +280,7 @@ Foydalanuvchi
 <div class="score" id="score"></div>
 
 <div class="save-status" id="saveStatus">
-Natija saqlanmoqda...
+Natija tayyorlanmoqda...
 </div>
 
 <br>
@@ -291,18 +301,32 @@ Natija saqlanmoqda...
    TELEGRAM
 ========================= */
 
-const tg = window.Telegram.WebApp;
+let tg = null;
+let telegramUser = null;
+
+try{
+
+if(window.Telegram && window.Telegram.WebApp){
+
+tg = window.Telegram.WebApp;
 
 tg.ready();
 tg.expand();
-
-let telegramUser = null;
 
 if(
 tg.initDataUnsafe &&
 tg.initDataUnsafe.user
 ){
-telegramUser = tg.initDataUnsafe.user;
+telegramUser =
+tg.initDataUnsafe.user;
+}
+
+}
+
+}catch(error){
+
+console.log("Telegram error:",error);
+
 }
 
 
@@ -318,13 +342,43 @@ const SUPABASE_URL =
 */
 
 const SUPABASE_KEY =
-sb_publishable_u1IQId7OpOqYMKJNlUnkGg_NdAoLsfv
+"sb_publishable_u1IQId7OpOqYMKJNlUnkGg_NdAoLsfv";
 
-const supabaseClient =
+
+let supabaseClient = null;
+
+
+/*
+   Supabase xato bersa ham
+   TEST ISHLASHDA DAVOM ETADI
+*/
+
+try{
+
+if(
+window.supabase &&
+SUPABASE_KEY !==
+"BU_YERGA_YANGI_PUBLISHABLE_KEYINGNI_QOY"
+){
+
+supabaseClient =
 window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
+
+}
+
+}catch(error){
+
+console.log(
+"Supabase ulanish xatosi:",
+error
+);
+
+supabaseClient = null;
+
+}
 
 
 /* =========================
@@ -463,11 +517,12 @@ c:2
 let current = 0;
 let correct = 0;
 let time = 600;
-let interval;
+let interval = null;
+let finished = false;
 
 
 /* =========================
-   START TEST
+   START
 ========================= */
 
 function startTest(){
@@ -482,8 +537,23 @@ document
 .classList
 .remove("hidden");
 
+showQuestion();
 
-interval = setInterval(function(){
+interval =
+setInterval(updateTimer,1000);
+
+}
+
+
+/* =========================
+   TIMER
+========================= */
+
+function updateTimer(){
+
+if(finished){
+return;
+}
 
 time--;
 
@@ -504,12 +574,10 @@ minutes + ":" + seconds;
 
 
 if(time <= 0){
+
 finish();
+
 }
-
-},1000);
-
-showQuestion();
 
 }
 
@@ -520,7 +588,13 @@ showQuestion();
 
 function showQuestion(){
 
-let q = questions[current];
+if(finished){
+return;
+}
+
+let q =
+questions[current];
+
 
 document
 .getElementById("number")
@@ -535,8 +609,10 @@ document
 .getElementById("progress")
 .style
 .width =
-(((current + 1) / questions.length) * 100)
-+ "%";
+(
+((current + 1) /
+questions.length) * 100
+) + "%";
 
 
 document
@@ -560,12 +636,17 @@ document.createElement("button");
 button.className =
 "answer";
 
+button.type =
+"button";
+
 button.textContent =
 answer;
 
 button.onclick =
 function(){
+
 choose(index);
+
 };
 
 box.appendChild(button);
@@ -576,28 +657,39 @@ box.appendChild(button);
 
 
 /* =========================
-   ANSWER
+   CHOOSE ANSWER
 ========================= */
 
 function choose(index){
+
+if(finished){
+return;
+}
 
 if(
 index ===
 questions[current].c
 ){
+
 correct++;
+
 }
 
 current++;
+
 
 if(
 current >=
 questions.length
 ){
+
 finish();
+
 }
 else{
+
 showQuestion();
+
 }
 
 }
@@ -613,16 +705,37 @@ let status =
 document.getElementById("saveStatus");
 
 
+/*
+   Telegram user yo'q bo'lsa
+   test baribir ishlaydi
+*/
+
 if(!telegramUser){
 
 status.textContent =
-"Telegram foydalanuvchisi aniqlanmadi.";
+"Natija tayyor. Telegram user aniqlanmadi.";
 
 return;
+
 }
 
 
-const result = {
+/*
+   Supabase ulanmagan bo'lsa
+   test natijasi baribir ko'rinadi
+*/
+
+if(!supabaseClient){
+
+status.textContent =
+"Natija ko‘rsatildi.";
+
+return;
+
+}
+
+
+let data = {
 
 telegram_id:
 telegramUser.id,
@@ -644,21 +757,21 @@ iq
 
 try{
 
-const { error } =
+let response =
 await supabaseClient
 .from("results")
-.insert(result);
+.insert(data);
 
 
-if(error){
+if(response.error){
 
 console.error(
 "Supabase error:",
-error
+response.error
 );
 
 status.textContent =
-"Natijani saqlashda xatolik.";
+"Natija ko‘rsatildi.";
 
 }
 else{
@@ -671,10 +784,13 @@ status.textContent =
 }
 catch(error){
 
-console.error(error);
+console.error(
+"Save error:",
+error
+);
 
 status.textContent =
-"Natijani saqlashda xatolik.";
+"Natija ko‘rsatildi.";
 
 }
 
@@ -687,7 +803,18 @@ status.textContent =
 
 function finish(){
 
+if(finished){
+return;
+}
+
+finished = true;
+
+if(interval){
+
 clearInterval(interval);
+interval = null;
+
+}
 
 
 document
@@ -702,7 +829,9 @@ document
 .remove("hidden");
 
 
-/* IQ */
+/*
+   IQ HISOBLASH
+*/
 
 let iq =
 70 +
@@ -711,7 +840,9 @@ Math.round(
 );
 
 
-/* USER */
+/*
+   USER
+*/
 
 let name =
 "Foydalanuvchi";
@@ -719,7 +850,9 @@ let name =
 
 if(telegramUser){
 
-if(telegramUser.first_name){
+if(
+telegramUser.first_name
+){
 
 name =
 telegramUser.first_name;
@@ -744,7 +877,9 @@ document
 name;
 
 
-/* NATIJA */
+/*
+   NATIJA
+*/
 
 document
 .getElementById("iq")
@@ -755,6 +890,7 @@ iq;
 document
 .getElementById("score")
 innerHTML =
+
 "<b>" +
 correct +
 " / " +
@@ -762,7 +898,9 @@ questions.length +
 "</b> ta to‘g‘ri javob";
 
 
-/* SUPABASE */
+/*
+   SUPABASE'GA SAQLASH
+*/
 
 saveResult(iq);
 
