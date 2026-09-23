@@ -3,73 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>IQ Test</title>
+<title>IQ Test UZ</title>
+
 <style>
-*{box-sizing:border-box}
+*{
+box-sizing:border-box;
+}
+
 body{
 margin:0;
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 background:#f4f6fb;
-color:#151922
+color:#151922;
 }
+
 .app{
 max-width:520px;
 margin:auto;
 min-height:100vh;
-padding:18px
+padding:18px;
 }
+
 .top{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:20px
+margin-bottom:20px;
 }
+
 .logo{
 font-size:25px;
-font-weight:800
+font-weight:800;
 }
+
 .badge{
 background:#e9edff;
 color:#4054d8;
 padding:8px 12px;
 border-radius:20px;
 font-size:13px;
-font-weight:700
+font-weight:700;
 }
+
 .hero{
 background:linear-gradient(135deg,#111827,#343f73);
 color:white;
 border-radius:26px;
 padding:28px 22px;
 margin-bottom:18px;
-box-shadow:0 12px 30px rgba(20,30,70,.18)
+box-shadow:0 12px 30px rgba(20,30,70,.18);
 }
+
 .hero-icon{
 font-size:50px;
-margin-bottom:10px
+margin-bottom:10px;
 }
+
 .hero h1{
 margin:0 0 8px;
-font-size:30px
+font-size:30px;
 }
+
 .hero p{
 margin:0;
 opacity:.78;
-line-height:1.5
+line-height:1.5;
 }
+
 .card{
 background:white;
 border-radius:22px;
 padding:20px;
 margin-bottom:15px;
-box-shadow:0 5px 20px rgba(0,0,0,.06)
+box-shadow:0 5px 20px rgba(0,0,0,.06);
 }
+
 .info{
 display:flex;
 gap:10px;
 margin-bottom:10px;
-font-size:15px
+font-size:15px;
 }
+
 .start{
 width:100%;
 border:0;
@@ -78,32 +93,37 @@ padding:17px;
 font-size:17px;
 font-weight:800;
 background:#111827;
-color:white
+color:white;
 }
+
 .progress-wrap{
 height:7px;
 background:#e9ebf0;
 border-radius:10px;
 overflow:hidden;
-margin:10px 0 20px
+margin:10px 0 20px;
 }
+
 .progress{
 height:100%;
 width:0%;
 background:#4054d8;
-transition:.3s
+transition:.3s;
 }
+
 .question-number{
 color:#6b7280;
 font-size:14px;
-font-weight:600
+font-weight:600;
 }
+
 .question{
 font-size:21px;
 font-weight:800;
 line-height:1.4;
-margin:12px 0 20px
+margin:12px 0 20px;
 }
+
 .answer{
 width:100%;
 padding:16px;
@@ -112,192 +132,391 @@ border:2px solid #e5e7eb;
 border-radius:15px;
 background:white;
 font-size:16px;
-text-align:left
+text-align:left;
 }
+
 .answer:active{
-transform:scale(.98)
+transform:scale(.98);
 }
-.timer{
-text-align:center;
-font-weight:800;
-font-size:17px;
-margin-bottom:12px
+
+.hidden{
+display:none;
 }
+
 .result{
-text-align:center
+text-align:center;
 }
+
 .result-icon{
-font-size:65px
+font-size:65px;
 }
+
 .iq{
 font-size:64px;
 font-weight:900;
-margin:8px
+margin:8px;
 }
+
 .score{
 color:#6b7280;
-margin-bottom:22px
+margin-bottom:22px;
 }
-.hidden{display:none}
 </style>
 </head>
+
 <body>
+
 <div class="app">
+
 <div id="start">
+
 <div class="top">
 <div class="logo">🧠 IQ Test</div>
 <div class="badge">UZ</div>
 </div>
+
 <div class="hero">
 <div class="hero-icon">🧠</div>
+
 <h1>IQ testingizni boshlang</h1>
-<p>Mantiqiy fikrlashingizni sinab ko‘ring va natijangizni bilib oling.</p>
+
+<p>
+Mantiqiy fikrlashingizni sinab ko‘ring va natijangizni bilib oling.
+</p>
 </div>
+
 <div class="card">
-<div class="info">📝 <b>10 ta savol</b></div>
-<div class="info">⏱️ <b>60 soniya</b></div>
-<div class="info">🏆 <b>Yakuniy IQ natija</b></div>
+
+<div class="info">📝 <b>20 ta savol</b></div>
+
+<div class="info">⏱️ <b>10 daqiqa</b></div>
+
+<div class="info">🏆 <b>IQ natija</b></div>
+
 <br>
+
 <button class="start" onclick="startTest()">
 TESTNI BOSHLASH →
 </button>
+
 </div>
+
 </div>
+
+
 <div id="test" class="hidden">
+
 <div class="top">
-<div class="logo">🧠 IQ Test</div>
-<div class="badge" id="timer">60 s</div>
+
+<div class="logo">
+🧠 IQ Test
 </div>
+
+<div class="badge" id="timer">
+10:00
+</div>
+
+</div>
+
+
 <div class="card">
+
 <div class="question-number" id="number"></div>
+
 <div class="progress-wrap">
+
 <div class="progress" id="progress"></div>
+
 </div>
+
 <div class="question" id="question"></div>
+
 <div id="answers"></div>
+
 </div>
+
 </div>
+
+
 <div id="result" class="hidden">
+
 <div class="top">
-<div class="logo">🧠 IQ Test</div>
-<div class="badge">Natija</div>
+
+<div class="logo">
+🧠 IQ Test
 </div>
+
+<div class="badge">
+Natija
+</div>
+
+</div>
+
 <div class="card result">
-<div class="result-icon">🏆</div>
+
+<div class="result-icon">
+🏆
+</div>
+
 <h2>Test yakunlandi</h2>
+
 <p>Sizning natijangiz</p>
-<div class="iq" id="iq">0</div>
+
+<div class="iq" id="iq">
+0
+</div>
+
 <div class="score" id="score"></div>
+
 <button class="start" onclick="location.reload()">
 🔄 QAYTA ISHLASH
 </button>
+
 </div>
+
 </div>
+
 </div>
+
 <script>
-const questions=[
+
+const questions = [
+
 {
 q:"2, 4, 8, 16, ?",
 a:["20","24","32","36"],
 c:2
 },
+
 {
 q:"1, 3, 6, 10, ?",
 a:["12","15","16","18"],
 c:1
 },
+
 {
 q:"3, 6, 12, 24, ?",
 a:["30","36","48","50"],
 c:2
 },
+
 {
 q:"1, 4, 9, 16, ?",
 a:["20","24","25","30"],
 c:2
 },
+
 {
 q:"100, 90, 80, 70, ?",
 a:["50","55","60","65"],
 c:2
 },
+
 {
 q:"2 × 3 + 4 = ?",
 a:["8","10","12","14"],
 c:1
 },
+
 {
 q:"7 + 8 = ?",
 a:["14","15","16","17"],
 c:1
 },
+
 {
 q:"5, 10, 20, 40, ?",
 a:["50","60","70","80"],
 c:3
 },
+
 {
 q:"12, 10, 8, 6, ?",
 a:["2","3","4","5"],
 c:2
 },
+
 {
 q:"2, 6, 12, 20, ?",
 a:["24","28","30","32"],
+c:2
+},
+
+{
+q:"5, 8, 11, 14, ?",
+a:["16","17","18","19"],
 c:1
+},
+
+{
+q:"81, 27, 9, 3, ?",
+a:["0","1","2","6"],
+c:1
+},
+
+{
+q:"4, 9, 16, 25, ?",
+a:["30","36","40","49"],
+c:1
+},
+
+{
+q:"20, 18, 15, 11, ?",
+a:["8","7","6","5"],
+c:2
+},
+
+{
+q:"6 × 4 - 5 = ?",
+a:["17","18","19","20"],
+c:0
+},
+
+{
+q:"3, 9, 27, 81, ?",
+a:["162","243","324","729"],
+c:1
+},
+
+{
+q:"10, 20, 30, 40, ?",
+a:["45","50","55","60"],
+c:1
+},
+
+{
+q:"1, 2, 4, 7, 11, ?",
+a:["15","16","17","18"],
+c:1
+},
+
+{
+q:"50, 45, 40, 35, ?",
+a:["25","30","32","33"],
+c:1
+},
+
+{
+q:"2, 5, 10, 17, 26, ?",
+a:["35","36","37","38"],
+c:2
 }
+
 ];
+
 let current=0;
 let correct=0;
-let time=60;
+let time=600;
 let interval;
+
 function startTest(){
+
 document.getElementById("start").classList.add("hidden");
+
 document.getElementById("test").classList.remove("hidden");
-interval=setInterval(()=>{
+
+interval=setInterval(function(){
+
 time--;
-document.getElementById("timer").textContent=time+" s";
-if(time<=0) finish();
-},1000);
-showQuestion();
+
+let minutes=Math.floor(time/60);
+
+let seconds=time%60;
+
+seconds=seconds<10?"0"+seconds:seconds;
+
+document.getElementById("timer").textContent=
+minutes+":"+seconds;
+
+if(time<=0){
+finish();
 }
+
+},1000);
+
+showQuestion();
+
+}
+
 function showQuestion(){
+
 let q=questions[current];
+
 document.getElementById("number").textContent=
 "Savol "+(current+1)+" / "+questions.length;
+
 document.getElementById("progress").style.width=
 ((current/questions.length)*100)+"%";
+
 document.getElementById("question").textContent=q.q;
+
 let box=document.getElementById("answers");
+
 box.innerHTML="";
-q.a.forEach((answer,index)=>{
+
+q.a.forEach(function(answer,index){
+
 let btn=document.createElement("button");
+
 btn.className="answer";
+
 btn.textContent=answer;
-btn.onclick=()=>choose(index);
+
+btn.onclick=function(){
+
+choose(index);
+
+};
+
 box.appendChild(btn);
+
 });
+
 }
+
 function choose(index){
+
 if(index===questions[current].c){
+
 correct++;
+
 }
+
 current++;
+
 if(current>=questions.length){
+
 finish();
+
 }else{
+
 showQuestion();
+
 }
+
 }
+
 function finish(){
+
 clearInterval(interval);
+
 document.getElementById("test").classList.add("hidden");
+
 document.getElementById("result").classList.remove("hidden");
-let iq=70+Math.round((correct/questions.length)*60);
+
+let iq=70+Math.round(
+(correct/questions.length)*60
+);
+
 document.getElementById("iq").textContent=iq;
+
 document.getElementById("score").textContent=
-correct+" / "+questions.length+" ta to‘g‘ri javob";
+correct+" / "+questions.length+
+" ta to‘g‘ri javob";
+
 }
+
 </script>
+
 </body>
 </html>
