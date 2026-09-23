@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
 <title>IQ Test UZ</title>
+
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  const tg = window.Telegram.WebApp;
 
-tg.ready();
-tg.expand();
-
-const user = tg.initDataUnsafe?.user;
-
-console.log(user);
 <style>
+
 *{
 box-sizing:border-box;
 }
@@ -104,6 +103,10 @@ background:#111827;
 color:white;
 }
 
+.start:active{
+transform:scale(.98);
+}
+
 .progress-wrap{
 height:7px;
 background:#e9ebf0;
@@ -159,6 +162,12 @@ text-align:center;
 font-size:65px;
 }
 
+.user-name{
+font-size:20px;
+font-weight:800;
+margin-top:10px;
+}
+
 .iq{
 font-size:64px;
 font-weight:900;
@@ -168,49 +177,79 @@ margin:8px;
 .score{
 color:#6b7280;
 margin-bottom:22px;
+line-height:1.6;
 }
+
 </style>
+
 </head>
 
 <body>
 
 <div class="app">
 
+<!-- START -->
+
 <div id="start">
 
 <div class="top">
-<div class="logo">🧠 IQ Test</div>
-<div class="badge">UZ</div>
+
+<div class="logo">
+🧠 IQ Test
+</div>
+
+<div class="badge">
+UZ
+</div>
+
 </div>
 
 <div class="hero">
-<div class="hero-icon">🧠</div>
 
-<h1>IQ testingizni boshlang</h1>
+<div class="hero-icon">
+🧠
+</div>
+
+<h1>
+IQ testingizni boshlang
+</h1>
 
 <p>
 Mantiqiy fikrlashingizni sinab ko‘ring va natijangizni bilib oling.
 </p>
+
 </div>
 
 <div class="card">
 
-<div class="info">📝 <b>20 ta savol</b></div>
+<div class="info">
+📝 <b>20 ta savol</b>
+</div>
 
-<div class="info">⏱️ <b>10 daqiqa</b></div>
+<div class="info">
+⏱️ <b>10 daqiqa</b>
+</div>
 
-<div class="info">🏆 <b>IQ natija</b></div>
+<div class="info">
+🏆 <b>IQ natija</b>
+</div>
 
 <br>
 
-<button class="start" onclick="startTest()">
+<button
+class="start"
+onclick="startTest()">
+
 TESTNI BOSHLASH →
+
 </button>
 
 </div>
 
 </div>
 
+
+<!-- TEST -->
 
 <div id="test" class="hidden">
 
@@ -220,31 +259,46 @@ TESTNI BOSHLASH →
 🧠 IQ Test
 </div>
 
-<div class="badge" id="timer">
+<div
+class="badge"
+id="timer">
+
 10:00
-</div>
 
 </div>
 
+</div>
 
 <div class="card">
 
-<div class="question-number" id="number"></div>
+<div
+class="question-number"
+id="number">
+</div>
 
 <div class="progress-wrap">
 
-<div class="progress" id="progress"></div>
-
-</div>
-
-<div class="question" id="question"></div>
-
-<div id="answers"></div>
-
+<div
+class="progress"
+id="progress">
 </div>
 
 </div>
 
+<div
+class="question"
+id="question">
+</div>
+
+<div id="answers">
+</div>
+
+</div>
+
+</div>
+
+
+<!-- RESULT -->
 
 <div id="result" class="hidden">
 
@@ -266,18 +320,37 @@ Natija
 🏆
 </div>
 
-<h2>Test yakunlandi</h2>
+<h2>
+Test yakunlandi
+</h2>
 
-<p>Sizning natijangiz</p>
+<div
+class="user-name"
+id="userName">
+Foydalanuvchi
+</div>
 
-<div class="iq" id="iq">
+<p>
+Sizning IQ natijangiz
+</p>
+
+<div
+class="iq"
+id="iq">
 0
 </div>
 
-<div class="score" id="score"></div>
+<div
+class="score"
+id="score">
+</div>
 
-<button class="start" onclick="location.reload()">
+<button
+class="start"
+onclick="location.reload()">
+
 🔄 QAYTA ISHLASH
+
 </button>
 
 </div>
@@ -286,7 +359,34 @@ Natija
 
 </div>
 
+
 <script>
+
+/* TELEGRAM */
+
+const tg = window.Telegram.WebApp;
+
+tg.ready();
+
+tg.expand();
+
+
+/* USER */
+
+let telegramUser = null;
+
+if(
+tg.initDataUnsafe &&
+tg.initDataUnsafe.user
+){
+
+telegramUser =
+tg.initDataUnsafe.user;
+
+}
+
+
+/* SAVOLLAR */
 
 const questions = [
 
@@ -412,91 +512,162 @@ c:2
 
 ];
 
-let current=0;
-let correct=0;
-let time=600;
+
+/* VARIABLES */
+
+let current = 0;
+
+let correct = 0;
+
+let time = 600;
+
 let interval;
+
+
+/* TESTNI BOSHLASH */
 
 function startTest(){
 
-document.getElementById("start").classList.add("hidden");
+document
+.getElementById("start")
+.classList
+.add("hidden");
 
-document.getElementById("test").classList.remove("hidden");
+document
+.getElementById("test")
+.classList
+.remove("hidden");
 
-interval=setInterval(function(){
+
+/* TIMER */
+
+interval = setInterval(function(){
 
 time--;
 
-let minutes=Math.floor(time/60);
+let minutes =
+Math.floor(time / 60);
 
-let seconds=time%60;
+let seconds =
+time % 60;
 
-seconds=seconds<10?"0"+seconds:seconds;
+if(seconds < 10){
+seconds = "0" + seconds;
+}
 
-document.getElementById("timer").textContent=
-minutes+":"+seconds;
+document
+.getElementById("timer")
+.textContent =
+minutes + ":" + seconds;
 
-if(time<=0){
+
+if(time <= 0){
+
 finish();
+
 }
 
 },1000);
+
 
 showQuestion();
 
 }
 
+
+/* SAVOL */
+
 function showQuestion(){
 
-let q=questions[current];
+let q =
+questions[current];
 
-document.getElementById("number").textContent=
-"Savol "+(current+1)+" / "+questions.length;
 
-document.getElementById("progress").style.width=
-((current/questions.length)*100)+"%";
+document
+.getElementById("number")
+.textContent =
+"Savol " +
+(current + 1) +
+" / " +
+questions.length;
 
-document.getElementById("question").textContent=q.q;
 
-let box=document.getElementById("answers");
+document
+.getElementById("progress")
+.style
+.width =
+((current / questions.length) * 100)
++ "%";
 
-box.innerHTML="";
 
-q.a.forEach(function(answer,index){
+document
+.getElementById("question")
+.textContent =
+q.q;
 
-let btn=document.createElement("button");
 
-btn.className="answer";
+let box =
+document.getElementById("answers");
 
-btn.textContent=answer;
 
-btn.onclick=function(){
+box.innerHTML = "";
+
+
+q.a.forEach(
+function(answer,index){
+
+let button =
+document.createElement("button");
+
+button.className =
+"answer";
+
+button.textContent =
+answer;
+
+
+button.onclick =
+function(){
 
 choose(index);
 
 };
 
-box.appendChild(btn);
+
+box.appendChild(button);
 
 });
 
 }
 
+
+/* JAVOB */
+
 function choose(index){
 
-if(index===questions[current].c){
+if(
+index ===
+questions[current].c
+){
 
 correct++;
 
 }
 
+
 current++;
 
-if(current>=questions.length){
+
+if(
+current >=
+questions.length
+){
 
 finish();
 
-}else{
+}
+
+else{
 
 showQuestion();
 
@@ -504,23 +675,101 @@ showQuestion();
 
 }
 
+
+/* YAKUN */
+
 function finish(){
 
 clearInterval(interval);
 
-document.getElementById("test").classList.add("hidden");
 
-document.getElementById("result").classList.remove("hidden");
+document
+.getElementById("test")
+.classList
+.add("hidden");
 
-let iq=70+Math.round(
-(correct/questions.length)*60
+
+document
+.getElementById("result")
+.classList
+.remove("hidden");
+
+
+/* IQ */
+
+let iq =
+70 +
+Math.round(
+(correct / questions.length) * 60
 );
 
-document.getElementById("iq").textContent=iq;
 
-document.getElementById("score").textContent=
-correct+" / "+questions.length+
-" ta to‘g‘ri javob";
+/* USER */
+
+let name =
+"Foydalanuvchi";
+
+
+if(telegramUser){
+
+if(telegramUser.first_name){
+
+name =
+telegramUser.first_name;
+
+}
+
+else if(
+telegramUser.username
+){
+
+name =
+"@" +
+telegramUser.username;
+
+}
+
+}
+
+
+document
+.getElementById("userName")
+.textContent =
+name;
+
+
+/* NATIJA */
+
+document
+.getElementById("iq")
+.textContent =
+iq;
+
+
+document
+.getElementById("score")
+.innerHTML =
+
+"<b>" +
+correct +
+" / " +
+questions.length +
+"</b> ta to‘g‘ri javob<br><br>" +
+
+"Telegram: " +
+(
+telegramUser
+?
+(
+telegramUser.username
+?
+"@" + telegramUser.username
+:
+name
+)
+:
+"Foydalanuvchi"
+);
 
 }
 
