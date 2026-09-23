@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IQ Test</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #f2f4f8;
+      color: #111827;
+    }
+
+    .app {
+      max-width: 500px;
+      min-height: 100vh;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .header {
+      text-align: center;
+      padding: 25px 10px;
+    }
+
+    .logo {
+      font-size: 55px;
+    }
+
+    h1 {
+      margin: 10px 0 5px;
+      font-size: 30px;
+    }
+
+    .subtitle {
+      color: #6b7280;
+    }
+
+    .card {
+      background: white;
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    .progress {
+      color: #6b7280;
+      margin-bottom: 15px;
+    }
+
+    .question {
+      font-size: 21px;
+      font-weight: bold;
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+
+    .answer {
+      width: 100%;
+      padding: 16px;
+      margin: 8px 0;
+      border: 2px solid #e5e7eb;
+      background: white;
+      border-radius: 14px;
+      font-size: 16px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .answer:active {
+      transform: scale(0.98);
+    }
+
+    .timer {
+      text-align: center;
+      margin: 15px 0;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .result {
+      text-align: center;
+    }
+
+    .iq {
+      font-size: 60px;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .start-btn {
+      width: 100%;
+      padding: 17px;
+      border: 0;
+      border-radius: 15px;
+      background: #111827;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div id="startScreen">
+    <div class="header">
+      <div class="logo">🧠</div>
+      <h1>IQ TEST</h1>
+      <p class="subtitle">Mantiqiy fikrlashingizni sinab ko‘ring</p>
+    </div>
+<div class="card">
+  <p>📝 10 ta savol</p>
+  <p>⏱️ Vaqt chegarasi mavjud</p>
+  <p>🏆 Yakunda IQ natijangiz chiqadi</p>
+
+  <button class="start-btn" onclick="startTest()">
+    TESTNI BOSHLASH
+  </button>
+</div>
+  </div>
+  <div id="testScreen" class="hidden">
+<div class="card">
+
+  <div class="progress" id="progress"></div>
+
+  <div class="timer">
+    ⏱️ <span id="timer">60</span>
+  </div>
+
+  <div class="question" id="question"></div>
+
+  <div id="answers"></div>
+
+</div>
+  </div>
+  <div id="resultScreen" class="hidden">
+<div class="header">
+  <div class="logo">🏆</div>
+  <h1>Test tugadi!</h1>
+</div>
+
+<div class="card result">
+
+  <p>Sizning IQ natijangiz:</p>
+
+  <div class="iq" id="iqResult">0</div>
+
+  <p id="scoreText"></p>
+
+  <button class="start-btn" onclick="location.reload()">
+    🔄 QAYTA ISHLASH
+  </button>
+
+</div>
+  </div>
+</div>
+<script>
+
+const questions = [
+  {
+    q: "2, 4, 8, 16, ?",
+    a: ["20", "24", "32", "36"],
+    correct: 2
+  },
+  {
+    q: "1, 3, 6, 10, ?",
+    a: ["12", "15", "16", "18"],
+    correct: 1
+  },
+  {
+    q: "5 + 5 × 2 = ?",
+    a: ["20", "15", "10", "25"],
+    correct: 1
+  },
+  {
+    q: "Agar barcha A lar B bo‘lsa va barcha B lar C bo‘lsa, A lar nima bo‘ladi?",
+    a: ["C", "D", "A emas", "Aniqlab bo‘lmaydi"],
+    correct: 0
+  },
+  {
+    q: "3, 6, 12, 24, ?",
+    a: ["30", "36", "48", "50"],
+    correct: 2
+  },
+  {
+    q: "10 ning yarmi qancha?",
+    a: ["2", "5", "10", "20"],
+    correct: 1
+  },
+  {
+    q: "7 + 8 = ?",
+    a: ["14", "15", "16", "17"],
+    correct: 1
+  },
+  {
+    q: "100, 90, 80, 70, ?",
+    a: ["50", "55", "60", "65"],
+    correct: 2
+  },
+  {
+    q: "2 × 3 + 4 = ?",
+    a: ["8", "10", "12", "14"],
+    correct: 1
+  },
+  {
+    q: "1, 4, 9, 16, ?",
+    a: ["20", "24", "25", "30"],
+    correct: 2
+  }
+];
+
+let current = 0;
+let score = 0;
+let time = 60;
+let interval;
+
+function startTest() {
+
+  document.getElementById("startScreen").classList.add("hidden");
+  document.getElementById("testScreen").classList.remove("hidden");
+
+  interval = setInterval(() => {
+
+    time--;
+
+    document.getElementById("timer").textContent = time;
+
+    if (time <= 0) {
+      finishTest();
+    }
+
+  }, 1000);
+
+  showQuestion();
+}
+
+function showQuestion() {
+
+  const q = questions[current];
+
+  document.getElementById("progress").textContent =
+    `Savol ${current + 1} / ${questions.length}`;
+
+  document.getElementById("question").textContent = q.q;
+
+  const answers = document.getElementById("answers");
+
+  answers.innerHTML = "";
+
+  q.a.forEach((answer, index) => {
+
+    const button = document.createElement("button");
+
+    button.className = "answer";
+    button.textContent = answer;
+
+    button.onclick = () => selectAnswer(index);
+
+    answers.appendChild(button);
+
+  });
+}
+
+function selectAnswer(index) {
+
+  if (index === questions[current].correct) {
+    score++;
+  }
+
+  current++;
+
+  if (current >= questions.length) {
+    finishTest();
+  } else {
+    showQuestion();
+  }
+}
+
+function finishTest() {
+
+  clearInterval(interval);
+
+  document.getElementById("testScreen").classList.add("hidden");
+  document.getElementById("resultScreen").classList.remove("hidden");
+
+  const iq = 70 + Math.round(
+    (score / questions.length) * 60
+  );
+
+  document.getElementById("iqResult").textContent = iq;
+
+  document.getElementById("scoreText").textContent =
+    `${score} / ${questions.length} ta savolga to‘g‘ri javob berdingiz.`;
+}
+
+</script>
+</body>
+</html>
