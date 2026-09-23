@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>IQ Test UZ</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-*{
-box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
 margin:0;
@@ -103,10 +98,6 @@ background:#111827;
 color:white;
 }
 
-.start:active{
-transform:scale(.98);
-}
-
 .progress-wrap{
 height:7px;
 background:#e9ebf0;
@@ -146,10 +137,6 @@ font-size:16px;
 text-align:left;
 }
 
-.answer:active{
-transform:scale(.98);
-}
-
 .hidden{
 display:none;
 }
@@ -180,8 +167,12 @@ margin-bottom:22px;
 line-height:1.6;
 }
 
+.save-status{
+font-size:13px;
+margin-top:12px;
+color:#6b7280;
+}
 </style>
-
 </head>
 
 <body>
@@ -189,172 +180,106 @@ line-height:1.6;
 <div class="app">
 
 <!-- START -->
-
 <div id="start">
 
 <div class="top">
-
-<div class="logo">
-🧠 IQ Test
-</div>
-
-<div class="badge">
-UZ
-</div>
-
+<div class="logo">🧠 IQ Test</div>
+<div class="badge">UZ</div>
 </div>
 
 <div class="hero">
+<div class="hero-icon">🧠</div>
 
-<div class="hero-icon">
-🧠
-</div>
-
-<h1>
-IQ testingizni boshlang
-</h1>
+<h1>IQ testingizni boshlang</h1>
 
 <p>
 Mantiqiy fikrlashingizni sinab ko‘ring va natijangizni bilib oling.
 </p>
-
 </div>
 
 <div class="card">
 
-<div class="info">
-📝 <b>20 ta savol</b>
-</div>
-
-<div class="info">
-⏱️ <b>10 daqiqa</b>
-</div>
-
-<div class="info">
-🏆 <b>IQ natija</b>
-</div>
+<div class="info">📝 <b>20 ta savol</b></div>
+<div class="info">⏱️ <b>10 daqiqa</b></div>
+<div class="info">🏆 <b>IQ natija</b></div>
 
 <br>
 
-<button
-class="start"
-onclick="startTest()">
-
+<button class="start" onclick="startTest()">
 TESTNI BOSHLASH →
-
 </button>
 
 </div>
-
 </div>
 
 
 <!-- TEST -->
-
 <div id="test" class="hidden">
 
 <div class="top">
 
-<div class="logo">
-🧠 IQ Test
-</div>
+<div class="logo">🧠 IQ Test</div>
 
-<div
-class="badge"
-id="timer">
-
+<div class="badge" id="timer">
 10:00
-
 </div>
 
 </div>
 
 <div class="card">
 
-<div
-class="question-number"
-id="number">
-</div>
+<div class="question-number" id="number"></div>
 
 <div class="progress-wrap">
-
-<div
-class="progress"
-id="progress">
+<div class="progress" id="progress"></div>
 </div>
 
-</div>
+<div class="question" id="question"></div>
 
-<div
-class="question"
-id="question">
-</div>
-
-<div id="answers">
-</div>
+<div id="answers"></div>
 
 </div>
-
 </div>
 
 
 <!-- RESULT -->
-
 <div id="result" class="hidden">
 
 <div class="top">
 
-<div class="logo">
-🧠 IQ Test
-</div>
+<div class="logo">🧠 IQ Test</div>
 
-<div class="badge">
-Natija
-</div>
+<div class="badge">Natija</div>
 
 </div>
 
 <div class="card result">
 
-<div class="result-icon">
-🏆
-</div>
+<div class="result-icon">🏆</div>
 
-<h2>
-Test yakunlandi
-</h2>
+<h2>Test yakunlandi</h2>
 
-<div
-class="user-name"
-id="userName">
+<div class="user-name" id="userName">
 Foydalanuvchi
 </div>
 
-<p>
-Sizning IQ natijangiz
-</p>
+<p>Sizning IQ natijangiz</p>
 
-<div
-class="iq"
-id="iq">
-0
+<div class="iq" id="iq">0</div>
+
+<div class="score" id="score"></div>
+
+<div class="save-status" id="saveStatus">
+Natija saqlanmoqda...
 </div>
 
-<div
-class="score"
-id="score">
-</div>
+<br>
 
-<button
-class="start"
-onclick="location.reload()">
-
+<button class="start" onclick="location.reload()">
 🔄 QAYTA ISHLASH
-
 </button>
 
 </div>
-
 </div>
 
 </div>
@@ -362,16 +287,14 @@ onclick="location.reload()">
 
 <script>
 
-/* TELEGRAM */
+/* =========================
+   TELEGRAM
+========================= */
 
 const tg = window.Telegram.WebApp;
 
 tg.ready();
-
 tg.expand();
-
-
-/* USER */
 
 let telegramUser = null;
 
@@ -379,14 +302,34 @@ if(
 tg.initDataUnsafe &&
 tg.initDataUnsafe.user
 ){
-
-telegramUser =
-tg.initDataUnsafe.user;
-
+telegramUser = tg.initDataUnsafe.user;
 }
 
 
-/* SAVOLLAR */
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+"https://qnpnktznhmwxvgijjryg.supabase.co";
+
+/*
+   sb_publishable_u1IQId7OpOqYMKJNlUnkGg_NdAoLsfv
+*/
+
+const SUPABASE_KEY =
+sb_publishable_u1IQId7OpOqYMKJNlUnkGg_NdAoLsfv
+
+const supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+/* =========================
+   SAVOLLAR
+========================= */
 
 const questions = [
 
@@ -513,18 +456,19 @@ c:2
 ];
 
 
-/* VARIABLES */
+/* =========================
+   VARIABLES
+========================= */
 
 let current = 0;
-
 let correct = 0;
-
 let time = 600;
-
 let interval;
 
 
-/* TESTNI BOSHLASH */
+/* =========================
+   START TEST
+========================= */
 
 function startTest(){
 
@@ -538,8 +482,6 @@ document
 .classList
 .remove("hidden");
 
-
-/* TIMER */
 
 interval = setInterval(function(){
 
@@ -562,26 +504,23 @@ minutes + ":" + seconds;
 
 
 if(time <= 0){
-
 finish();
-
 }
 
 },1000);
-
 
 showQuestion();
 
 }
 
 
-/* SAVOL */
+/* =========================
+   SHOW QUESTION
+========================= */
 
 function showQuestion(){
 
-let q =
-questions[current];
-
+let q = questions[current];
 
 document
 .getElementById("number")
@@ -596,7 +535,7 @@ document
 .getElementById("progress")
 .style
 .width =
-((current / questions.length) * 100)
+(((current + 1) / questions.length) * 100)
 + "%";
 
 
@@ -608,7 +547,6 @@ q.q;
 
 let box =
 document.getElementById("answers");
-
 
 box.innerHTML = "";
 
@@ -625,14 +563,10 @@ button.className =
 button.textContent =
 answer;
 
-
 button.onclick =
 function(){
-
 choose(index);
-
 };
-
 
 box.appendChild(button);
 
@@ -641,7 +575,9 @@ box.appendChild(button);
 }
 
 
-/* JAVOB */
+/* =========================
+   ANSWER
+========================= */
 
 function choose(index){
 
@@ -649,34 +585,105 @@ if(
 index ===
 questions[current].c
 ){
-
 correct++;
-
 }
 
-
 current++;
-
 
 if(
 current >=
 questions.length
 ){
-
 finish();
+}
+else{
+showQuestion();
+}
 
 }
 
+
+/* =========================
+   SAVE RESULT
+========================= */
+
+async function saveResult(iq){
+
+let status =
+document.getElementById("saveStatus");
+
+
+if(!telegramUser){
+
+status.textContent =
+"Telegram foydalanuvchisi aniqlanmadi.";
+
+return;
+}
+
+
+const result = {
+
+telegram_id:
+telegramUser.id,
+
+username:
+telegramUser.username || null,
+
+first_name:
+telegramUser.first_name || null,
+
+score:
+correct,
+
+iq:
+iq
+
+};
+
+
+try{
+
+const { error } =
+await supabaseClient
+.from("results")
+.insert(result);
+
+
+if(error){
+
+console.error(
+"Supabase error:",
+error
+);
+
+status.textContent =
+"Natijani saqlashda xatolik.";
+
+}
 else{
 
-showQuestion();
+status.textContent =
+"✅ Natija saqlandi.";
+
+}
+
+}
+catch(error){
+
+console.error(error);
+
+status.textContent =
+"Natijani saqlashda xatolik.";
 
 }
 
 }
 
 
-/* YAKUN */
+/* =========================
+   FINISH
+========================= */
 
 function finish(){
 
@@ -718,7 +725,6 @@ name =
 telegramUser.first_name;
 
 }
-
 else if(
 telegramUser.username
 ){
@@ -748,28 +754,17 @@ iq;
 
 document
 .getElementById("score")
-.innerHTML =
-
+innerHTML =
 "<b>" +
 correct +
 " / " +
 questions.length +
-"</b> ta to‘g‘ri javob<br><br>" +
+"</b> ta to‘g‘ri javob";
 
-"Telegram: " +
-(
-telegramUser
-?
-(
-telegramUser.username
-?
-"@" + telegramUser.username
-:
-name
-)
-:
-"Foydalanuvchi"
-);
+
+/* SUPABASE */
+
+saveResult(iq);
 
 }
 
