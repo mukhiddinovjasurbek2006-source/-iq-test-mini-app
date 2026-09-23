@@ -2,1023 +2,1368 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>IQ PRO</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>IQ Test Uzbekistan</title>
+
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box}
+
 body{
+  margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:#080a0f;color:#f5f7fa;min-height:100vh;
+  background:#f5f7fb;
+  color:#111827;
 }
-button{font:inherit}
-.app{max-width:520px;margin:auto;min-height:100vh;padding:20px 16px 90px}
+
+.app{
+  max-width:600px;
+  margin:auto;
+  min-height:100vh;
+  padding-bottom:80px;
+}
+
 .header{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-bottom:22px
+  background:#111827;
+  color:white;
+  padding:22px 18px;
+  border-radius:0 0 24px 24px;
 }
-.logo{font-size:23px;font-weight:900;letter-spacing:1px}
-.logo span{color:#6d7cff}
-.user-mini{
-  background:#151923;border:1px solid #252b38;
-  padding:8px 12px;border-radius:20px;font-size:12px;color:#aeb5c2
+
+.header h1{
+  margin:0;
+  font-size:25px;
 }
-.page{display:none}
-.page.active{display:block}
-.hero{
-  padding:28px 20px;border:1px solid #252b38;
-  border-radius:24px;background:linear-gradient(145deg,#121620,#0c0f15);
-  margin-bottom:16px;text-align:center;
+
+.header p{
+  margin:6px 0 0;
+  opacity:.75;
+  font-size:14px;
 }
-.hero-icon{font-size:54px;margin-bottom:12px}
-.hero h1{font-size:31px;margin-bottom:8px}
-.hero p{color:#969eac;font-size:14px;line-height:1.5}
-.stats{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:8px;margin:16px 0;
+
+.page{
+  display:none;
+  padding:18px;
 }
-.stat{
-  background:#11151d;border:1px solid #242a36;
-  border-radius:16px;padding:14px 5px;text-align:center;
+
+.page.active{
+  display:block;
 }
-.stat b{display:block;font-size:18px}
-.stat span{font-size:10px;color:#858d9b}
+
+.card{
+  background:white;
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:14px;
+  box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.big{
+  font-size:38px;
+  font-weight:800;
+  text-align:center;
+}
+
+.center{text-align:center}
+
 .btn{
-  width:100%;border:0;border-radius:16px;
-  padding:16px;font-weight:800;cursor:pointer;
+  width:100%;
+  border:0;
+  border-radius:15px;
+  padding:15px;
+  background:#111827;
+  color:white;
+  font-size:16px;
+  font-weight:700;
+  margin-top:10px;
 }
-.primary{
-  background:#6d7cff;color:white;
-  box-shadow:0 8px 25px #6d7cff30;
+
+.btn.secondary{
+  background:#e5e7eb;
+  color:#111827;
 }
-.secondary{
-  background:#141923;color:#dce1ea;
-  border:1px solid #282f3d;margin-top:10px
-}
-.nav{
-  position:fixed;bottom:0;left:0;right:0;
-  background:#0c0f15ee;backdrop-filter:blur(16px);
-  border-top:1px solid #202632;
-  display:flex;justify-content:center;z-index:20
-}
-.nav-inner{width:520px;display:grid;grid-template-columns:1fr 1fr}
-.nav button{
-  background:none;border:0;color:#737b89;
-  padding:13px 5px 11px;font-size:12px
-}
-.nav button.active{color:#fff}
-.nav-icon{display:block;font-size:20px;margin-bottom:3px}
-.test-top{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-bottom:15px
-}
-.timer{
-  background:#18131a;border:1px solid #392734;
-  color:#ff879e;border-radius:12px;padding:8px 11px;font-weight:800
-}
-.progress-wrap{height:6px;background:#191e28;border-radius:10px;overflow:hidden}
-.progress{height:100%;background:#6d7cff;width:0%;transition:.3s}
-.question-card{
-  background:#11151d;border:1px solid #252b38;
-  border-radius:22px;padding:22px;margin-top:18px
-}
-.category{
-  color:#7e8cff;font-size:11px;font-weight:800;
-  letter-spacing:1px;margin-bottom:12px
-}
+
 .question{
-  font-size:22px;font-weight:750;line-height:1.4;
-  margin-bottom:20px
+  font-size:20px;
+  font-weight:700;
+  margin-bottom:16px;
+  line-height:1.4;
 }
-.answers{display:grid;gap:10px}
-.answer{
-  background:#151a23;border:1px solid #2a3140;
-  color:#e9edf3;padding:15px;border-radius:14px;
-  text-align:left;cursor:pointer;transition:.15s
+
+.option{
+  width:100%;
+  padding:15px;
+  margin:8px 0;
+  border:2px solid #e5e7eb;
+  border-radius:14px;
+  background:white;
+  text-align:left;
+  font-size:16px;
 }
-.answer:active{transform:scale(.98)}
-.answer.selected{
-  background:#252d55;border-color:#6d7cff
+
+.option.selected{
+  border-color:#111827;
+  background:#eef2ff;
 }
-.dots{
-  display:flex;gap:5px;justify-content:center;
-  margin:18px 0;flex-wrap:wrap
+
+.timer{
+  text-align:center;
+  font-size:20px;
+  font-weight:800;
+  margin-bottom:14px;
 }
-.dot{
-  width:7px;height:7px;border-radius:50%;
-  background:#303744
+
+.progress{
+  height:8px;
+  background:#e5e7eb;
+  border-radius:20px;
+  overflow:hidden;
+  margin-bottom:18px;
 }
-.dot.done{background:#6d7cff}
-.result-card{
-  text-align:center;background:#11151d;
-  border:1px solid #252b38;border-radius:24px;padding:25px
+
+.progress div{
+  height:100%;
+  background:#111827;
+  width:0%;
 }
-.trophy{font-size:52px}
-.iq{
-  font-size:58px;font-weight:900;
-  margin:6px 0;color:#8b96ff
+
+.nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  max-width:600px;
+  margin:auto;
+  height:65px;
+  background:white;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-top:1px solid #e5e7eb;
+  z-index:10;
 }
-.muted{color:#89919f;font-size:13px}
-.result-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:8px;margin:18px 0
+
+.nav button{
+  border:0;
+  background:white;
+  font-size:13px;
+  color:#6b7280;
 }
-.result-stat{
-  background:#171c25;border-radius:14px;padding:12px 5px
+
+.nav button.active{
+  color:#111827;
+  font-weight:800;
 }
-.result-stat b{display:block;font-size:18px}
-.result-stat span{font-size:10px;color:#858d9b}
-.section-title{
-  font-size:18px;font-weight:800;margin:22px 0 10px
+
+.rank-card{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  border-radius:15px;
+  margin-bottom:8px;
+  background:#f9fafb;
 }
-.bar-row{margin:12px 0}
-.bar-head{
-  display:flex;justify-content:space-between;
-  font-size:12px;margin-bottom:5px
+
+.rank-card.me{
+  background:#e0e7ff;
+  border:2px solid #6366f1;
 }
-.bar-bg{height:7px;background:#1c222d;border-radius:8px}
-.bar-fill{height:100%;background:#6d7cff;border-radius:8px}
-.rank-box{
-  background:#121721;border:1px solid #293142;
-  border-radius:18px;padding:16px;text-align:center
+
+.rank-number{
+  width:35px;
+  font-weight:800;
+  text-align:center;
 }
-.rank-number{font-size:32px;font-weight:900;color:#9ba4ff}
-.table{
-  background:#11151d;border:1px solid #252b38;
-  border-radius:18px;overflow:hidden
+
+.rank-name{
+  flex:1;
+  font-weight:700;
 }
-.row{
-  display:grid;grid-template-columns:38px 1fr 55px 55px;
-  gap:5px;align-items:center;padding:13px 10px;
-  border-bottom:1px solid #202632;font-size:12px
+
+.rank-iq{
+  font-weight:800;
 }
-.row:last-child{border-bottom:0}
-.row.head{color:#747d8b;font-size:10px}
-.row .score{text-align:right;font-weight:800}
-.medal{font-size:17px}
-.profile-card{
-  background:linear-gradient(145deg,#121722,#0d1017);
-  border:1px solid #272e3b;border-radius:24px;
-  padding:22px;text-align:center
+
+.top3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
 }
-.avatar{
-  width:70px;height:70px;border-radius:50%;
-  background:#252d55;margin:auto;
-  display:flex;align-items:center;justify-content:center;
-  font-size:30px;font-weight:900;color:#aeb6ff
+
+.top-user{
+  text-align:center;
+  background:#f9fafb;
+  border-radius:16px;
+  padding:15px 5px;
 }
-.profile-name{font-size:21px;font-weight:850;margin-top:12px}
-.profile-username{font-size:12px;color:#7f8795;margin-top:3px}
-.profile-stats{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:9px;margin-top:18px
+
+.top-user .medal{
+  font-size:30px;
 }
-.profile-stat{
-  background:#171c25;border-radius:15px;padding:15px
+
+.top-user .name{
+  font-size:13px;
+  font-weight:700;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
-.profile-stat b{display:block;font-size:22px}
-.profile-stat span{font-size:10px;color:#858d9b}
+
+.top-user .iq{
+  font-weight:800;
+  margin-top:5px;
+}
+
 .history{
-  display:grid;gap:9px
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid #eee;
 }
-.history-item{
-  display:flex;justify-content:space-between;
-  align-items:center;background:#121720;
-  border:1px solid #252b37;border-radius:15px;padding:13px
-}
-.history-left b{display:block;font-size:14px}
-.history-left span{font-size:10px;color:#727b89}
-.history-iq{font-size:20px;font-weight:900;color:#8f99ff}
-.save{
-  margin-top:12px;font-size:12px;color:#89919f
-}
-.success{color:#64d89b}
-.error{color:#ff7189}
-.empty{
-  text-align:center;padding:25px;color:#7e8795;
-  font-size:13px
+
+.status{
+  font-size:13px;
+  margin-top:10px;
+  text-align:center;
+  color:#6b7280;
 }
 </style>
 </head>
+
 <body>
+
 <div class="app">
-  <div class="header">
-    <div class="logo">IQ<span>PRO</span></div>
-    <div class="user-mini" id="miniUser">Guest</div>
+
+<header class="header">
+  <h1>🧠 IQ Test Uzbekistan</h1>
+  <p>Bilimingizni sinang va reytingda o‘rningizni ko‘ring</p>
+</header>
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+  <div class="card center">
+    <div class="big">🧠</div>
+    <h2>IQ testingizni boshlang</h2>
+    <p>20 ta savol · 10 daqiqa</p>
+    <button class="btn" onclick="startTest()">Testni boshlash</button>
   </div>
-  <!-- HOME -->
-  <section id="homePage" class="page active">
-    <div class="hero">
-      <div class="hero-icon">🧠</div>
-      <h1>IQ Challenge</h1>
-      <p>
-        Mantiq, sonlar, verbal fikrlash va pattern savollari
-        orqali o‘zingizni sinab ko‘ring.
-      </p>
-    </div>
-    <div class="stats">
-      <div class="stat"><b>20</b><span>SAVOL</span></div>
-      <div class="stat"><b>10:00</b><span>VAQT</span></div>
-      <div class="stat"><b>4</b><span>KATEGORIYA</span></div>
-    </div>
-    <button class="btn primary" onclick="startTest()">🧠 Testni boshlash</button>
-    <div class="section-title">🏆 Top 10</div>
-    <div class="table" id="homeRanking">
-      <div class="empty">Yuklanmoqda...</div>
-    </div>
-  </section>
-  <!-- TEST -->
-  <section id="testPage" class="page">
-    <div class="test-top">
-      <div>
-        <b id="questionNumber">1 / 20</b>
-      </div>
-      <div class="timer" id="timer">10:00</div>
-    </div>
-    <div class="progress-wrap">
-      <div class="progress" id="progress"></div>
-    </div>
-    <div class="dots" id="dots"></div>
-    <div class="question-card">
-      <div class="category" id="category">NUMERICAL</div>
-      <div class="question" id="question"></div>
-      <div class="answers" id="answers"></div>
-    </div>
-    <button class="btn secondary" id="nextBtn" onclick="nextQuestion()">
-      Keyingi savol →
-    </button>
-  </section>
-  <!-- RESULT -->
-  <section id="resultPage" class="page">
-    <div class="result-card">
-      <div class="trophy">🏆</div>
-      <div class="muted">SIZNING IQ NATIJANGIZ</div>
-      <div class="iq" id="iqValue">0</div>
-      <div class="muted" id="resultName">Guest</div>
-      <div class="result-grid">
-        <div class="result-stat">
-          <b id="correctValue">0</b>
-          <span>TO‘G‘RI</span>
-        </div>
-        <div class="result-stat">
-          <b id="accuracyValue">0%</b>
-          <span>ANIQLIK</span>
-        </div>
-        <div class="result-stat">
-          <b id="timeValue">0:00</b>
-          <span>VAQT</span>
-        </div>
-      </div>
-      <div class="section-title" style="text-align:left">
-        📊 Kategoriyalar
-      </div>
-      <div id="categoryAnalysis"></div>
-      <div class="rank-box" style="margin-top:18px">
-        <div class="muted">SIZNING REYTINGINGIZ</div>
-        <div class="rank-number" id="myRank">#—</div>
-        <div class="muted" id="percentile"></div>
-      </div>
-      <div id="saveStatus" class="save">
-        Natija saqlanmoqda...
-      </div>
-      <button class="btn primary" style="margin-top:16px"
-              onclick="showPage('profilePage');loadProfile()">
-        👤 Profilim
-      </button>
-      <button class="btn secondary" onclick="restartTest()">
-        🔄 Qayta ishlash
-      </button>
-    </div>
-    <div class="section-title">🏆 Top 10</div>
-    <div class="table" id="resultRanking"></div>
-  </section>
-  <!-- PROFILE -->
-  <section id="profilePage" class="page">
-    <div class="profile-card">
-      <div class="avatar" id="avatar">?</div>
-      <div class="profile-name" id="profileName">Guest</div>
-      <div class="profile-username" id="profileUsername">@username</div>
-      <div class="profile-stats">
-        <div class="profile-stat">
-          <b id="bestIQ">—</b>
-          <span>ENG YUQORI IQ</span>
-        </div>
-        <div class="profile-stat">
-          <b id="averageIQ">—</b>
-          <span>O‘RTACHA IQ</span>
-        </div>
-        <div class="profile-stat">
-          <b id="testCount">0</b>
-          <span>TESTLAR</span>
-        </div>
-        <div class="profile-stat">
-          <b id="profileRank">#—</b>
-          <span>REYTING</span>
-        </div>
-      </div>
-    </div>
-    <div class="section-title">📜 Test tarixi</div>
-    <div class="history" id="history">
-      <div class="empty">Natijalar yuklanmoqda...</div>
-    </div>
-  </section>
-</div>
-<!-- NAVIGATION -->
-<div class="nav">
-  <div class="nav-inner">
-    <button id="navTest" class="active" onclick="showPage('homePage');setNav('navTest')">
-      <span class="nav-icon">🧠</span>
-      Test
-    </button>
-    <button id="navProfile" onclick="showPage('profilePage');setNav('navProfile');loadProfile()">
-      <span class="nav-icon">👤</span>
-      Profil
-    </button>
+
+  <div class="card">
+    <h3>🏆 Reyting</h3>
+    <p>Eng yuqori IQ natijalarini ko‘ring.</p>
+    <button class="btn secondary" onclick="showPage('ranking');loadRanking()">Reytingni ko‘rish</button>
   </div>
+
+</section>
+
+<!-- TEST -->
+<section id="test" class="page">
+
+  <div class="timer" id="timer">10:00</div>
+
+  <div class="progress">
+    <div id="progressBar"></div>
+  </div>
+
+  <div class="card">
+
+    <div id="questionNumber"></div>
+
+    <div class="question" id="questionText"></div>
+
+    <div id="options"></div>
+
+    <button class="btn" id="nextBtn" onclick="nextQuestion()">
+      Keyingi
+    </button>
+
+  </div>
+
+</section>
+
+<!-- RESULT -->
+<section id="result" class="page">
+
+  <div class="card center">
+
+    <div style="font-size:50px">🎉</div>
+
+    <h2>Test yakunlandi</h2>
+
+    <p>To‘g‘ri javoblar:</p>
+
+    <div class="big" id="resultScore">0/20</div>
+
+    <p>Tahminiy IQ:</p>
+
+    <div class="big" id="resultIQ">70</div>
+
+    <div id="saveStatus" class="status"></div>
+
+    <button class="btn" onclick="showPage('ranking');loadRanking()">
+      🏆 Reytingni ko‘rish
+    </button>
+
+    <button class="btn secondary" onclick="showPage('home')">
+      Bosh sahifa
+    </button>
+
+  </div>
+
+</section>
+
+<!-- RANKING -->
+<section id="ranking" class="page">
+
+  <div class="card">
+
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h2 style="margin:0">🏆 Reyting</h2>
+
+      <button
+        onclick="loadRanking()"
+        style="border:0;background:#eef2ff;border-radius:10px;padding:8px 12px">
+        🔄
+      </button>
+    </div>
+
+    <div id="myRankBox" style="margin-top:15px"></div>
+
+  </div>
+
+  <div class="card">
+
+    <h3>🥇 Top 3</h3>
+
+    <div class="top3" id="top3"></div>
+
+  </div>
+
+  <div class="card">
+
+    <h3>🌍 Top 100</h3>
+
+    <div id="top100">
+      Yuklanmoqda...
+    </div>
+
+  </div>
+
+</section>
+
+<!-- PROFILE -->
+<section id="profile" class="page">
+
+  <div class="card center">
+
+    <div style="font-size:45px">👤</div>
+
+    <h2 id="profileName">Foydalanuvchi</h2>
+
+    <p id="profileUsername"></p>
+
+  </div>
+
+  <div class="card">
+
+    <div class="history">
+      <span>🏆 Eng yaxshi IQ</span>
+      <b id="bestIQ">—</b>
+    </div>
+
+    <div class="history">
+      <span>📊 O‘rtacha IQ</span>
+      <b id="avgIQ">—</b>
+    </div>
+
+    <div class="history">
+      <span>📝 Testlar</span>
+      <b id="testCount">—</b>
+    </div>
+
+    <div class="history">
+      <span>🏅 Reytingdagi o‘rin</span>
+      <b id="profileRank">—</b>
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <h3>📜 Testlar tarixi</h3>
+
+    <div id="historyList">
+      Yuklanmoqda...
+    </div>
+
+  </div>
+
+</section>
+
 </div>
+
+<nav class="nav">
+
+  <button id="navHome" class="active" onclick="showPage('home')">
+    🧠<br>Test
+  </button>
+
+  <button id="navRanking" onclick="showPage('ranking');loadRanking()">
+    🏆<br>Reyting
+  </button>
+
+  <button id="navProfile" onclick="showPage('profile');loadProfile()">
+    👤<br>Profil
+  </button>
+
+</nav>
+
+
 <script>
-const SUPABASE_URL = "https://qnpnktznhmwxvgijjryg.supabase.co";
+
+const SUPABASE_URL =
+"https://qnpnktznhmwxvgijjryg.supabase.co";
+
 /*
   MUHIM:
-  Quyidagi joyga o‘zingdagi SUPABASE PUBLISHABLE KEY'ni qo‘y.
+  Quyidagi joyga o'zingdagi HOZIRGI
+  Supabase Publishable Keyni qo'y.
 */
-const SUPABASE_KEY = "sb_publishable_u1IQId7OpOqYMKJNlUnkGg_NdAoLsfv";
+
+const SUPABASE_KEY =
+"sb_publishable_u1IQId7OpOqYMKJNlUnkGg_NdAoLsfv";
+
+
 let tg = null;
 let telegramUser = null;
+
 try{
+
   if(window.Telegram && window.Telegram.WebApp){
+
     tg = window.Telegram.WebApp;
+
     tg.ready();
     tg.expand();
-    if(tg.initDataUnsafe && tg.initDataUnsafe.user){
-      telegramUser = tg.initDataUnsafe.user;
+
+    if(
+      tg.initDataUnsafe &&
+      tg.initDataUnsafe.user
+    ){
+      telegramUser =
+        tg.initDataUnsafe.user;
     }
+
   }
+
 }catch(error){
+
   console.log(error);
+
 }
+
+
+/* =========================
+   SUPABASE
+========================= */
+
+async function supabaseFetch(path, options={}){
+
+  const response =
+    await fetch(
+      SUPABASE_URL + path,
+      {
+        ...options,
+
+        headers:{
+          "apikey":SUPABASE_KEY,
+          "Authorization":
+            "Bearer " + SUPABASE_KEY,
+          "Content-Type":
+            "application/json",
+          ...(options.headers || {})
+        }
+      }
+    );
+
+  const text =
+    await response.text();
+
+  if(!response.ok){
+
+    throw new Error(
+      text || response.statusText
+    );
+
+  }
+
+  return text ? JSON.parse(text) : null;
+
+}
+
+
 /* =========================
    QUESTIONS
 ========================= */
+
 const questions = [
+
 {
- category:"NUMERICAL",
- q:"2, 6, 12, 20, 30, ?",
- options:["36","40","42","44"],
- answer:2
+q:"2, 6, 12, 20, 30, ?",
+options:["36","40","42","44"],
+answer:2
 },
+
 {
- category:"NUMERICAL",
- q:"3, 7, 15, 31, 63, ?",
- options:["95","111","127","129"],
- answer:2
+q:"3, 7, 15, 31, 63, ?",
+options:["95","111","127","129"],
+answer:2
 },
+
 {
- category:"NUMERICAL",
- q:"1, 4, 10, 22, 46, ?",
- options:["82","90","94","96"],
- answer:2
+q:"1, 4, 10, 22, 46, ?",
+options:["82","90","94","96"],
+answer:2
 },
+
 {
- category:"NUMERICAL",
- q:"81, 54, 36, 24, ?",
- options:["18","16","12","14"],
- answer:0
+q:"81, 54, 36, 24, ?",
+options:["18","16","12","20"],
+answer:0
 },
+
 {
- category:"NUMERICAL",
- q:"5, 9, 17, 33, 65, ?",
- options:["97","129","131","133"],
- answer:1
+q:"5, 9, 17, 33, 65, ?",
+options:["97","127","129","131"],
+answer:2
 },
+
 {
- category:"LOGIC",
- q:"Barcha shifokorlar oliy ma'lumotli. Ali shifokor. Demak:",
- options:[
-   "Ali talaba",
-   "Ali oliy ma'lumotli",
-   "Ali professor",
-   "Aniqlab bo‘lmaydi"
- ],
- answer:1
+q:"Barcha shifokorlar ma'lumotli. Ali shifokor. Demak:",
+options:[
+"Ali ma'lumotli",
+"Ali shifokor emas",
+"Ali talaba",
+"Aniqlab bo'lmaydi"
+],
+answer:0
 },
+
 {
- category:"LOGIC",
- q:"Barcha A lar B. Hech bir B C emas. Demak:",
- options:[
-   "Ba'zi A lar C",
-   "Barcha A lar C",
-   "Hech bir A C emas",
-   "Aniqlab bo‘lmaydi"
- ],
- answer:2
+q:"Barcha A lar B. Hech bir B C emas. Demak:",
+options:[
+"Barcha A lar C",
+"Hech bir A C emas",
+"Barcha C A",
+"Aniqlab bo'lmaydi"
+],
+answer:1
 },
+
 {
- category:"LOGIC",
- q:"5 ta mashina 5 daqiqada 5 ta detal ishlab chiqaradi. 1 ta mashina 1 ta detalni necha daqiqada ishlab chiqaradi?",
- options:["1","5","10","25"],
- answer:1
+q:"5 ta mashina 5 daqiqada 5 ta detal ishlab chiqaradi. 1 ta mashina 1 ta detalni necha daqiqada ishlab chiqaradi?",
+options:["1","5","10","25"],
+answer:1
 },
+
 {
- category:"LOGIC",
- q:"2 ota va 2 o‘g‘il bor, lekin jami 3 kishi. Qanday?",
- options:[
-   "Xato",
-   "Bobo, ota va o‘g‘il",
-   "Aka-uka",
-   "Egizaklar"
- ],
- answer:1
+q:"2 ta ota va 2 ta o‘g‘il uchun eng kamida nechta odam kerak?",
+options:["2","3","4","5"],
+answer:1
 },
+
 {
- category:"LOGIC",
- q:"Soat 3:00 da soat va minut strelkalari orasidagi burchak nechchi?",
- options:["60°","90°","120°","180°"],
- answer:1
+q:"Soat 3:00 da soat strelkalari orasidagi burchak nechchi?",
+options:["0°","45°","90°","180°"],
+answer:2
 },
+
 {
- category:"VERBAL",
- q:"BOOK : READ = PEN : ?",
- options:["DRAW","WRITE","OPEN","HOLD"],
- answer:1
+q:"BOOK : READ = PEN : ?",
+options:["WRITE","DRAW","OPEN","CLOSE"],
+answer:0
 },
+
 {
- category:"VERBAL",
- q:"HOT : COLD = BIG : ?",
- options:["LONG","SMALL","HIGH","FAST"],
- answer:1
+q:"HOT : COLD = BIG : ?",
+options:["LONG","SMALL","SHORT","THIN"],
+answer:1
 },
+
 {
- category:"VERBAL",
- q:"Qaysi biri ortiqcha?",
- options:["Olma","Nok","Banan","Sabzi"],
- answer:3
+q:"Qaysi biri boshqalardan farq qiladi?",
+options:["Olma","Nok","Banan","Sabzi"],
+answer:3
 },
+
 {
- category:"VERBAL",
- q:"Qaysi juftlik noto‘g‘ri?",
- options:[
-   "Qush — uchadi",
-   "Baliq — suzadi",
-   "Inson — yuradi",
-   "Kitob — yuguradi"
- ],
- answer:3
+q:"Qaysi juftlik noto‘g‘ri?",
+options:[
+"Qush — uchadi",
+"Ba'liq — suzadi",
+"Inson — yuradi",
+"Kitob — yuguradi"
+],
+answer:3
 },
+
 {
- category:"VERBAL",
- q:"EYE : SEE = EAR : ?",
- options:["TOUCH","HEAR","SMELL","TASTE"],
- answer:1
+q:"Ko‘z : ko‘rish = Quloq : ?",
+options:["Gapirish","Eshitish","Yurish","Hid bilish"],
+answer:1
 },
+
 {
- category:"PATTERN",
- q:"🔵 🔵 🔴 🔵 🔵 🔴 🔵 🔵 ?",
- options:["🔵","🔴","🟢","🟡"],
- answer:1
+q:"🔵 🔵 🔴 🔵 🔵 🔴 🔵 🔵 ?",
+options:["🔵","🔴","🟢","🟡"],
+answer:1
 },
+
 {
- category:"PATTERN",
- q:"▲ ■ ▲ ■ ▲ ■ ?",
- options:["▲","■","●","◆"],
- answer:0
+q:"▲ ■ ▲ ■ ▲ ■ ?",
+options:["▲","■","●","◆"],
+answer:0
 },
+
 {
- category:"PATTERN",
- q:"● ▲ ▲ ● ▲ ▲ ● ?",
- options:["●","▲","■","◆"],
- answer:1
+q:"● ▲ ▲ ● ▲ ▲ ● ?",
+options:["●","▲","■","◆"],
+answer:1
 },
+
 {
- category:"PATTERN",
- q:"◆ ◆ ● ◆ ◆ ● ◆ ?",
- options:["◆","●","▲","■"],
- answer:0
+q:"◆ ◆ ● ◆ ◆ ● ◆ ?",
+options:["◆","●","▲","■"],
+answer:0
 },
+
 {
- category:"PATTERN",
- q:"★ ○ ○ ★ ○ ○ ★ ?",
- options:["★","○","▲","●"],
- answer:1
+q:"★ ○ ○ ★ ○ ○ ★ ?",
+options:["★","○","▲","●"],
+answer:1
 }
+
 ];
+
+
 /* =========================
-   STATE
+   TEST
 ========================= */
+
 let currentQuestion = 0;
 let selectedAnswers = [];
-let correct = 0;
-let timerSeconds = 600;
 let timerInterval = null;
-let startTime = 0;
-/* =========================
-   TELEGRAM USER
-========================= */
-function getUserName(){
-  if(telegramUser){
-    return telegramUser.first_name ||
-           telegramUser.username ||
-           "Telegram User";
-  }
-  return "Guest";
-}
-function updateUserUI(){
-  const name = getUserName();
-  document.getElementById("miniUser").textContent =
-    name.length > 18 ? name.substring(0,18) + "…" : name;
-  document.getElementById("resultName").textContent = name;
-  document.getElementById("profileName").textContent = name;
-  if(telegramUser && telegramUser.username){
-    document.getElementById("profileUsername").textContent =
-      "@" + telegramUser.username;
-  }else{
-    document.getElementById("profileUsername").textContent =
-      "Telegram user";
-  }
-  const letter = name.charAt(0).toUpperCase() || "?";
-  document.getElementById("avatar").textContent = letter;
-}
-/* =========================
-   NAVIGATION
-========================= */
-function showPage(id){
-  document.querySelectorAll(".page").forEach(p=>{
-    p.classList.remove("active");
-  });
-  document.getElementById(id).classList.add("active");
-  window.scrollTo(0,0);
-}
-function setNav(id){
-  document.querySelectorAll(".nav button").forEach(b=>{
-    b.classList.remove("active");
-  });
-  document.getElementById(id).classList.add("active");
-}
-/* =========================
-   START TEST
-========================= */
+let timeLeft = 600;
+
+
 function startTest(){
+
   currentQuestion = 0;
-  selectedAnswers = new Array(questions.length).fill(null);
-  correct = 0;
-  timerSeconds = 600;
-  startTime = Date.now();
-  showPage("testPage");
-  setNav("navTest");
-  createDots();
+
+  selectedAnswers =
+    new Array(questions.length)
+      .fill(null);
+
+  timeLeft = 600;
+
+  clearInterval(timerInterval);
+
+  showPage("test");
+
   renderQuestion();
-  startTimer();
+
+  timerInterval =
+    setInterval(updateTimer,1000);
+
 }
-/* =========================
-   TIMER
-========================= */
-function startTimer(){
-  clearInterval(timerInterval);
-  updateTimer();
-  timerInterval = setInterval(()=>{
-    timerSeconds--;
-    updateTimer();
-    if(timerSeconds <= 0){
-      clearInterval(timerInterval);
-      finishTest();
-    }
-  },1000);
-}
+
+
 function updateTimer(){
-  const minutes = Math.floor(timerSeconds/60)
-    .toString().padStart(2,"0");
-  const seconds = (timerSeconds%60)
-    .toString().padStart(2,"0");
-  document.getElementById("timer").textContent =
-    `${minutes}:${seconds}`;
-}
-/* =========================
-   QUESTIONS UI
-========================= */
-function createDots(){
-  const container = document.getElementById("dots");
-  container.innerHTML = "";
-  questions.forEach((q,i)=>{
-    const dot = document.createElement("div");
-    dot.className = "dot";
-    dot.id = "dot-"+i;
-    container.appendChild(dot);
-  });
-}
-function renderQuestion(){
-  const q = questions[currentQuestion];
-  document.getElementById("questionNumber").textContent =
-    `${currentQuestion+1} / ${questions.length}`;
-  document.getElementById("progress").style.width =
-    `${((currentQuestion)/questions.length)*100}%`;
-  document.getElementById("category").textContent =
-    q.category;
-  document.getElementById("question").textContent =
-    q.q;
-  const answers = document.getElementById("answers");
-  answers.innerHTML = "";
-  q.options.forEach((option,index)=>{
-    const button = document.createElement("button");
-    button.className = "answer";
-    button.textContent = option;
-    if(selectedAnswers[currentQuestion] === index){
-      button.classList.add("selected");
-    }
-    button.onclick = ()=>selectAnswer(index);
-    answers.appendChild(button);
-  });
-  document.getElementById("nextBtn").textContent =
-    currentQuestion === questions.length-1
-      ? "Natijani ko‘rish →"
-      : "Keyingi savol →";
-}
-function selectAnswer(index){
-  selectedAnswers[currentQuestion] = index;
-  document.querySelectorAll(".answer").forEach((button,i)=>{
-    button.classList.toggle(
-      "selected",
-      i === index
-    );
-  });
-  document.getElementById("dot-"+currentQuestion)
-    .classList.add("done");
-}
-function nextQuestion(){
-  if(selectedAnswers[currentQuestion] === null){
-    alert("Avval javobni tanlang.");
-    return;
-  }
-  if(currentQuestion < questions.length-1){
-    currentQuestion++;
-    renderQuestion();
-  }else{
+
+  timeLeft--;
+
+  if(timeLeft <= 0){
+
+    clearInterval(timerInterval);
+
     finishTest();
+
+    return;
+
   }
+
+  const min =
+    Math.floor(timeLeft / 60);
+
+  const sec =
+    timeLeft % 60;
+
+  document.getElementById("timer")
+    .textContent =
+      `${min}:${String(sec).padStart(2,"0")}`;
+
 }
-/* =========================
-   FINISH
-========================= */
-function finishTest(){
+
+
+function renderQuestion(){
+
+  const q =
+    questions[currentQuestion];
+
+  document.getElementById("questionNumber")
+    .textContent =
+      `Savol ${currentQuestion+1} / ${questions.length}`;
+
+  document.getElementById("questionText")
+    .textContent = q.q;
+
+  const options =
+    document.getElementById("options");
+
+  options.innerHTML = "";
+
+  q.options.forEach((option,index)=>{
+
+    const button =
+      document.createElement("button");
+
+    button.className = "option";
+
+    button.textContent = option;
+
+    if(selectedAnswers[currentQuestion] === index){
+
+      button.classList.add("selected");
+
+    }
+
+    button.onclick = ()=>{
+
+      selectedAnswers[currentQuestion] =
+        index;
+
+      renderQuestion();
+
+    };
+
+    options.appendChild(button);
+
+  });
+
+  const progress =
+    ((currentQuestion) / questions.length) * 100;
+
+  document.getElementById("progressBar")
+    .style.width =
+      progress + "%";
+
+  const next =
+    document.getElementById("nextBtn");
+
+  if(currentQuestion === questions.length-1){
+
+    next.textContent =
+      "Natijani ko‘rish";
+
+  }else{
+
+    next.textContent =
+      "Keyingi";
+
+  }
+
+}
+
+
+function nextQuestion(){
+
+  if(selectedAnswers[currentQuestion] === null){
+
+    alert("Avval javobni tanlang.");
+
+    return;
+
+  }
+
+  if(currentQuestion <
+     questions.length-1){
+
+    currentQuestion++;
+
+    renderQuestion();
+
+  }else{
+
+    finishTest();
+
+  }
+
+}
+
+
+async function finishTest(){
+
   clearInterval(timerInterval);
-  correct = 0;
-  questions.forEach((q,i)=>{
-    if(selectedAnswers[i] === q.answer){
+
+  let correct = 0;
+
+  questions.forEach((q,index)=>{
+
+    if(selectedAnswers[index] === q.answer){
+
       correct++;
+
     }
+
   });
-  const iq = 70 + Math.round(
-    (correct / questions.length) * 60
-  );
-  const usedSeconds = 600 - timerSeconds;
-  document.getElementById("iqValue").textContent = iq;
-  document.getElementById("correctValue").textContent =
-    `${correct}/${questions.length}`;
-  document.getElementById("accuracyValue").textContent =
-    `${Math.round(correct/questions.length*100)}%`;
-  document.getElementById("timeValue").textContent =
-    formatTime(usedSeconds);
-  renderCategoryAnalysis();
-  showPage("resultPage");
-  saveResult(iq);
-}
-function formatTime(seconds){
-  const m = Math.floor(seconds/60);
-  const s = seconds%60;
-  return `${m}:${s.toString().padStart(2,"0")}`;
-}
-/* =========================
-   CATEGORY ANALYSIS
-========================= */
-function renderCategoryAnalysis(){
-  const categories = [
-    "NUMERICAL",
-    "LOGIC",
-    "VERBAL",
-    "PATTERN"
-  ];
-  const container =
-    document.getElementById("categoryAnalysis");
-  container.innerHTML = "";
-  categories.forEach(category=>{
-    const list = questions
-      .map((q,i)=>({q,i}))
-      .filter(x=>x.q.category === category);
-    let right = 0;
-    list.forEach(item=>{
-      if(selectedAnswers[item.i] === item.q.answer){
-        right++;
-      }
-    });
-    const percent = Math.round(
-      right/list.length*100
+
+  /*
+    Bu faqat demo hisoblash formulasi.
+    Haqiqiy klinik/standart IQ testi emas.
+  */
+
+  const iq =
+    70 +
+    Math.round(
+      (correct / questions.length) * 60
     );
-    container.innerHTML += `
-      <div class="bar-row">
-        <div class="bar-head">
-          <span>${category}</span>
-          <span>${right}/${list.length}</span>
-        </div>
-        <div class="bar-bg">
-          <div class="bar-fill" style="width:${percent}%"></div>
-        </div>
-      </div>
-    `;
-  });
+
+  document.getElementById("resultScore")
+    .textContent =
+      `${correct}/${questions.length}`;
+
+  document.getElementById("resultIQ")
+    .textContent = iq;
+
+  showPage("result");
+
+  await saveResult(correct,iq);
+
 }
-/* =========================
-   SUPABASE REQUEST
-========================= */
-async function supabaseFetch(path,options={}){
-  const response = await fetch(
-    SUPABASE_URL + path,
-    {
-      ...options,
-      headers:{
-        "apikey":SUPABASE_KEY,
-        "Authorization":"Bearer " + SUPABASE_KEY,
-        "Content-Type":"application/json",
-        ...(options.headers || {})
-      }
-    }
-  );
-  const text = await response.text();
-  let data = null;
-  try{
-    data = text ? JSON.parse(text) : null;
-  }catch{
-    data = text;
-  }
-  if(!response.ok){
-    throw new Error(
-      data?.message ||
-      data?.hint ||
-      data?.error_description ||
-      text ||
-      `HTTP ${response.status}`
-    );
-  }
-  return data;
-}
+
+
 /* =========================
    SAVE RESULT
 ========================= */
-async function saveResult(iq){
-  const status = document.getElementById("saveStatus");
-  status.textContent = "Natija saqlanmoqda...";
-  status.className = "save";
-  if(!telegramUser || !telegramUser.id){
+
+async function saveResult(correct,iq){
+
+  const status =
+    document.getElementById("saveStatus");
+
+  if(!telegramUser){
+
     status.textContent =
-      "Telegram foydalanuvchisi aniqlanmadi. Natija saqlanmadi.";
-    status.className = "save error";
+      "Telegram foydalanuvchisi aniqlanmadi.";
+
     return;
+
   }
-  if(
-    !SUPABASE_KEY ||
-    SUPABASE_KEY.includes("BU_YERGA")
-  ){
-    status.textContent =
-      "Supabase Publishable Key kiritilmagan.";
-    status.className = "save error";
-    return;
-  }
+
+  status.textContent =
+    "Natija saqlanmoqda...";
+
   try{
+
     await supabaseFetch(
       "/rest/v1/results",
       {
         method:"POST",
+
         headers:{
-          "Prefer":"return=minimal"
+          "Prefer":
+            "return=minimal"
         },
+
         body:JSON.stringify({
-          telegram_id:telegramUser.id,
+
+          telegram_id:
+            telegramUser.id,
+
           username:
             telegramUser.username || null,
+
           first_name:
             telegramUser.first_name || null,
-          score:correct,
-          iq:iq
+
+          score:
+            correct,
+
+          iq:
+            iq
+
         })
+
       }
     );
+
     status.textContent =
-      "✓ Natija muvaffaqiyatli saqlandi";
-    status.className = "save success";
-    await loadRanking();
-    await loadMyRank();
+      "✅ Natijangiz saqlandi.";
+
   }catch(error){
+
     console.error(error);
+
     status.textContent =
-      "Xatolik: " + error.message;
-    status.className = "save error";
+      "❌ Saqlashda xatolik: " +
+      error.message;
+
   }
+
 }
+
+
 /* =========================
    RANKING
 ========================= */
-async function loadRanking(){
-  try{
-    const data = await supabaseFetch(
-      "/rest/v1/results?select=first_name,username,iq,score&order=iq.desc&limit=10"
+
+async function getRanking(){
+
+  const data =
+    await supabaseFetch(
+      "/rest/v1/results" +
+      "?select=telegram_id,first_name,username,iq,score,created_at" +
+      "&order=iq.desc"
     );
-    renderRanking(
-      document.getElementById("homeRanking"),
-      data
-    );
-    renderRanking(
-      document.getElementById("resultRanking"),
-      data
-    );
-  }catch(error){
-    console.error(error);
-    const message =
-      '<div class="empty">Reytingni yuklab bo‘lmadi.</div>';
-    document.getElementById("homeRanking").innerHTML =
-      message;
-    document.getElementById("resultRanking").innerHTML =
-      message;
-  }
-}
-function renderRanking(container,data){
-  if(!data || !data.length){
-    container.innerHTML =
-      '<div class="empty">Hozircha natijalar yo‘q.</div>';
-    return;
-  }
-  let html = `
-    <div class="row head">
-      <div>#</div>
-      <div>Foydalanuvchi</div>
-      <div class="score">IQ</div>
-      <div class="score">Ball</div>
-    </div>
-  `;
-  data.forEach((item,index)=>{
-    const name =
-      item.first_name ||
-      item.username ||
-      "User";
-    let medal = "";
-    if(index===0) medal="🥇";
-    else if(index===1) medal="🥈";
-    else if(index===2) medal="🥉";
-    html += `
-      <div class="row">
-        <div class="medal">${medal || index+1}</div>
-        <div>${escapeHtml(name)}</div>
-        <div class="score">${item.iq}</div>
-        <div class="score">${item.score}</div>
-      </div>
-    `;
-  });
-  container.innerHTML = html;
-}
-/* =========================
-   PERSONAL RANK
-========================= */
-async function loadMyRank(){
-  if(!telegramUser || !telegramUser.id){
-    document.getElementById("myRank").textContent = "#—";
-    return;
-  }
-  try{
-    const data = await supabaseFetch(
-      "/rest/v1/results?select=telegram_id,iq&order=iq.desc"
-    );
-    const rank =
-      data.findIndex(
-        x => String(x.telegram_id) === String(telegramUser.id)
-      ) + 1;
-    if(rank > 0){
-      document.getElementById("myRank").textContent =
-        "#" + rank;
-      const total = data.length;
-      if(total > 1){
-        const higher = rank-1;
-        const percentile =
-          Math.round((higher/(total-1))*100);
-        document.getElementById("percentile").textContent =
-          `Foydalanuvchilarning ${percentile}%idan yuqori`;
-      }
+
+  /*
+    Har bir Telegram user uchun
+    eng yaxshi IQ olinadi.
+  */
+
+  const users = new Map();
+
+  data.forEach(row=>{
+
+    const id =
+      String(row.telegram_id);
+
+    const old =
+      users.get(id);
+
+    if(
+      !old ||
+      Number(row.iq) > Number(old.iq) ||
+      (
+        Number(row.iq) === Number(old.iq) &&
+        new Date(row.created_at) >
+        new Date(old.created_at)
+      )
+    ){
+
+      users.set(id,row);
+
     }
-  }catch(error){
-    console.error(error);
-  }
+
+  });
+
+  const ranking =
+    [...users.values()]
+      .sort(
+        (a,b)=>
+          Number(b.iq) -
+          Number(a.iq)
+      );
+
+  return ranking;
+
 }
+
+
+async function loadRanking(){
+
+  const top100 =
+    document.getElementById("top100");
+
+  const top3 =
+    document.getElementById("top3");
+
+  const myRankBox =
+    document.getElementById("myRankBox");
+
+  top100.innerHTML =
+    "Yuklanmoqda...";
+
+  try{
+
+    const ranking =
+      await getRanking();
+
+    /* TOP 3 */
+
+    top3.innerHTML = "";
+
+    const medals =
+      ["🥇","🥈","🥉"];
+
+    ranking
+      .slice(0,3)
+      .forEach((user,index)=>{
+
+        const div =
+          document.createElement("div");
+
+        div.className =
+          "top-user";
+
+        const name =
+          user.first_name ||
+          user.username ||
+          "User";
+
+        div.innerHTML = `
+          <div class="medal">${medals[index]}</div>
+          <div class="name">${escapeHtml(name)}</div>
+          <div class="iq">IQ ${user.iq}</div>
+        `;
+
+        top3.appendChild(div);
+
+      });
+
+
+    /* MY RANK */
+
+    if(telegramUser){
+
+      const myId =
+        String(telegramUser.id);
+
+      const myIndex =
+        ranking.findIndex(
+          user =>
+            String(user.telegram_id) === myId
+        );
+
+      if(myIndex !== -1){
+
+        const me =
+          ranking[myIndex];
+
+        myRankBox.innerHTML = `
+          <div style="
+            background:#eef2ff;
+            border-radius:15px;
+            padding:15px;
+            text-align:center;
+          ">
+            <div style="font-size:14px">
+              Sizning o‘rningiz
+            </div>
+
+            <div style="
+              font-size:30px;
+              font-weight:900;
+              margin:4px 0;
+            ">
+              #${myIndex+1}
+            </div>
+
+            <div>
+              IQ ${me.iq}
+            </div>
+          </div>
+        `;
+
+      }else{
+
+        myRankBox.innerHTML =
+          "Siz hali reytingda yo‘qsiz.";
+
+      }
+
+    }
+
+
+    /* TOP 100 */
+
+    top100.innerHTML = "";
+
+    ranking
+      .slice(0,100)
+      .forEach((user,index)=>{
+
+        const div =
+          document.createElement("div");
+
+        div.className =
+          "rank-card";
+
+        const isMe =
+          telegramUser &&
+          String(user.telegram_id) ===
+          String(telegramUser.id);
+
+        if(isMe){
+
+          div.classList.add("me");
+
+        }
+
+        const name =
+          user.first_name ||
+          user.username ||
+          "User";
+
+        div.innerHTML = `
+
+          <div class="rank-number">
+            #${index+1}
+          </div>
+
+          <div class="rank-name">
+            ${escapeHtml(name)}
+            ${isMe ? " 👈" : ""}
+          </div>
+
+          <div class="rank-iq">
+            IQ ${user.iq}
+          </div>
+
+        `;
+
+        top100.appendChild(div);
+
+      });
+
+    if(ranking.length === 0){
+
+      top100.innerHTML =
+        "Hozircha reyting bo‘sh.";
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    top100.innerHTML =
+      "❌ Reytingni yuklashda xatolik.<br><br>" +
+      escapeHtml(error.message);
+
+  }
+
+}
+
+
 /* =========================
    PROFILE
 ========================= */
+
 async function loadProfile(){
-  updateUserUI();
-  if(!telegramUser || !telegramUser.id){
-    document.getElementById("history").innerHTML =
-      '<div class="empty">Telegram profilingiz aniqlanmadi.</div>';
+
+  if(!telegramUser){
+
+    document.getElementById("profileName")
+      .textContent =
+      "Telegram foydalanuvchisi";
+
     return;
+
   }
+
+  document.getElementById("profileName")
+    .textContent =
+      telegramUser.first_name ||
+      "Foydalanuvchi";
+
+  document.getElementById("profileUsername")
+    .textContent =
+      telegramUser.username
+      ? "@" + telegramUser.username
+      : "";
+
   try{
-    const data = await supabaseFetch(
-      `/rest/v1/results?telegram_id=eq.${encodeURIComponent(telegramUser.id)}&select=score,iq,created_at&order=created_at.desc`
-    );
+
+    const data =
+      await supabaseFetch(
+        "/rest/v1/results" +
+        "?telegram_id=eq." +
+        encodeURIComponent(telegramUser.id) +
+        "&select=score,iq,created_at" +
+        "&order=created_at.desc"
+      );
+
     if(!data.length){
-      document.getElementById("history").innerHTML =
-        '<div class="empty">Hali test ishlanmagan.</div>';
-      document.getElementById("bestIQ").textContent = "—";
-      document.getElementById("averageIQ").textContent = "—";
-      document.getElementById("testCount").textContent = "0";
-      document.getElementById("profileRank").textContent = "#—";
+
+      document.getElementById("bestIQ")
+        .textContent = "—";
+
+      document.getElementById("avgIQ")
+        .textContent = "—";
+
+      document.getElementById("testCount")
+        .textContent = "0";
+
+      document.getElementById("profileRank")
+        .textContent = "—";
+
+      document.getElementById("historyList")
+        .innerHTML =
+        "Hali test topshirmagansiz.";
+
       return;
+
     }
-    const scores = data.map(x=>Number(x.iq));
-    const best = Math.max(...scores);
-    const average = Math.round(
-      scores.reduce((a,b)=>a+b,0)/scores.length
-    );
-    document.getElementById("bestIQ").textContent =
-      best;
-    document.getElementById("averageIQ").textContent =
-      average;
-    document.getElementById("testCount").textContent =
-      data.length;
-    renderHistory(data);
-    await loadProfileRank(best);
-  }catch(error){
-    console.error(error);
-    document.getElementById("history").innerHTML =
-      `<div class="empty">Xatolik: ${escapeHtml(error.message)}</div>`;
-  }
-}
-function renderHistory(data){
-  const container =
-    document.getElementById("history");
-  container.innerHTML = "";
-  data.slice(0,20).forEach(item=>{
-    const date = new Date(item.created_at);
-    const dateText =
-      date.toLocaleDateString(
-        "uz-UZ",
-        {
-          day:"2-digit",
-          month:"2-digit",
-          year:"numeric"
-        }
+
+    const best =
+      Math.max(
+        ...data.map(x=>Number(x.iq))
       );
-    const timeText =
-      date.toLocaleTimeString(
-        "uz-UZ",
-        {
-          hour:"2-digit",
-          minute:"2-digit"
-        }
+
+    const average =
+      Math.round(
+        data.reduce(
+          (sum,x)=>
+            sum + Number(x.iq),
+          0
+        ) / data.length
       );
-    container.innerHTML += `
-      <div class="history-item">
-        <div class="history-left">
-          <b>${item.score}/20 to‘g‘ri</b>
-          <span>${dateText} • ${timeText}</span>
-        </div>
-        <div class="history-iq">
-          ${item.iq}
-        </div>
-      </div>
-    `;
-  });
-}
-async function loadProfileRank(bestIQ){
-  try{
-    const all = await supabaseFetch(
-      "/rest/v1/results?select=telegram_id,iq&order=iq.desc"
-    );
+
+    document.getElementById("bestIQ")
+      .textContent = best;
+
+    document.getElementById("avgIQ")
+      .textContent = average;
+
+    document.getElementById("testCount")
+      .textContent = data.length;
+
+
+    /* RANK */
+
+    const ranking =
+      await getRanking();
+
     const rank =
-      all.findIndex(
+      ranking.findIndex(
         x =>
           String(x.telegram_id) ===
-          String(telegramUser.id) &&
-          Number(x.iq) === Number(bestIQ)
-      ) + 1;
-    document.getElementById("profileRank").textContent =
-      rank > 0 ? "#" + rank : "#—";
+          String(telegramUser.id)
+      );
+
+    document.getElementById("profileRank")
+      .textContent =
+        rank >= 0
+        ? "#" + (rank+1)
+        : "—";
+
+
+    /* HISTORY */
+
+    const history =
+      document.getElementById("historyList");
+
+    history.innerHTML = "";
+
+    data.forEach(item=>{
+
+      const date =
+        new Date(item.created_at)
+          .toLocaleDateString("uz-UZ");
+
+      const div =
+        document.createElement("div");
+
+      div.className =
+        "history";
+
+      div.innerHTML = `
+        <span>${date}</span>
+        <span>
+          ${item.score}/20 ·
+          <b>IQ ${item.iq}</b>
+        </span>
+      `;
+
+      history.appendChild(div);
+
+    });
+
   }catch(error){
+
     console.error(error);
+
+    document.getElementById("historyList")
+      .innerHTML =
+      "❌ Xatolik: " +
+      escapeHtml(error.message);
+
   }
+
 }
+
+
 /* =========================
-   HELPERS
+   NAVIGATION
 ========================= */
+
+function showPage(page){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(x=>
+      x.classList.remove("active")
+    );
+
+  document
+    .getElementById(page)
+    .classList.add("active");
+
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(x=>
+      x.classList.remove("active")
+    );
+
+  if(page === "home" ||
+     page === "test" ||
+     page === "result"){
+
+    document
+      .getElementById("navHome")
+      .classList.add("active");
+
+  }
+
+  if(page === "ranking"){
+
+    document
+      .getElementById("navRanking")
+      .classList.add("active");
+
+  }
+
+  if(page === "profile"){
+
+    document
+      .getElementById("navProfile")
+      .classList.add("active");
+
+  }
+
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
 function escapeHtml(value){
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
 }
-function restartTest(){
-  startTest();
-}
-/* =========================
-   INIT
-========================= */
-updateUserUI();
-loadRanking();
+
 </script>
+
 </body>
 </html>
